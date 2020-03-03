@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CSS Simple Selectors</title>
+    <url>/2020/03/03/CSS-Simple-Selectors/</url>
+    <content><![CDATA[<h2 id="CSS-Selectors"><a href="#CSS-Selectors" class="headerlink" title="CSS Selectors"></a>CSS Selectors</h2><p>在构建CSS文件时, 有多种方法来对目标进行选择:</p>
+<ul>
+<li>Simple selectors (基于 name, id, class进行选择, <strong><u>这篇文章就写这一部分</u></strong>.)</li>
+<li>Combinator selectors (基于特定的元素间关系选择)</li>
+<li>Pseudo-class selectors (基于特定的表达进行选择)</li>
+<li>Pseudo-elements selectors (对于一个元素的部分进行选择)</li>
+<li>Attribute selectors (对于拥有特定的Attribute进行选择)</li>
+</ul>
+<h3 id="The-CSS-element-Selector"><a href="#The-CSS-element-Selector" class="headerlink" title="The CSS element Selector:"></a>The CSS element Selector:</h3><p>对于标签进行选择的时候什么都不加就好, 例:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改变html里面标签为p的部分(比较广泛).</p>
+<h3 id="The-CSS-id-Selector"><a href="#The-CSS-id-Selector" class="headerlink" title="The CSS id Selector"></a>The CSS id Selector</h3><p>对于id进行选择, 用#进行开头, 例:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#para1</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在html里面就是改变id=”para1”的css.</p>
+<h3 id="The-CSS-class-Selector"><a href="#The-CSS-class-Selector" class="headerlink" title="The CSS class Selector"></a>The CSS class Selector</h3><p>对于指定的class进行选择, 用.进行开头, 例:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.center</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在html里面就是改变class=”center”的css, 还有另一种, 是对特定的标签下面的class进行修改, 例:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.center</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样子就是对标签为p的class进行修改啦.</p>
+<h3 id="The-CSS-Universal-Selector"><a href="#The-CSS-Universal-Selector" class="headerlink" title="The CSS Universal Selector"></a>The CSS Universal Selector</h3><p>那么怎么样对全局进行修改呢?</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="The-CSS-Grouping-Selector"><a href="#The-CSS-Grouping-Selector" class="headerlink" title="The CSS Grouping Selector"></a>The CSS Grouping Selector</h3><p>如果对多个元素进行同样的操作的话, CSS也支持进行group操作:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>版面分析相关比赛和介绍</title>
     <url>/2020/02/29/About-Document-Analysis/</url>
     <content><![CDATA[<h2 id="关于版面分析比赛"><a href="#关于版面分析比赛" class="headerlink" title="关于版面分析比赛:"></a>关于版面分析比赛:</h2><p>最新的比赛是在<a href="https://www.primaresearch.org/RDCL2019/" target="_blank" rel="noopener">ICDAR2019 Competition on Recognition of Documents with Complex Layouts</a>, 网站中提供了相关数据集. </p>
