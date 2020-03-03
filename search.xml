@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CSS Simple Selectors</title>
+    <title>CSS 如何添加至HTML</title>
+    <url>/2020/03/03/CSS-How-To-Add/</url>
+    <content><![CDATA[<h2 id="如何添加CSS"><a href="#如何添加CSS" class="headerlink" title="如何添加CSS"></a>如何添加CSS</h2><p>共有三种方法向HTML文本中添加CSS:</p>
+<ul>
+<li>External CSS</li>
+<li>Internal CSS</li>
+<li>Inline CSS</li>
+</ul>
+<h3 id="External-CSS"><a href="#External-CSS" class="headerlink" title="External CSS"></a>External CSS</h3><p>外部CSS引用的好处就是可以将多种定义都集成在一个文件里, 方便管理也十分的优雅.<br>具体的插入方法是在head标签中添加link标签:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"mystyle.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>外部的CSS文件内不应该包括任何的HTML标签, 注意type, rel和href就好.</p>
+<h3 id="Internal-CSS"><a href="#Internal-CSS" class="headerlink" title="Internal CSS"></a>Internal CSS</h3><p>对于内部的CSS定义, 我们直接把他写在style标签中, 同样也是在head里面:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">body &#123;</span><br><span class="line">  background-color: linen;</span><br><span class="line">&#125;</span><br><span class="line">h1 &#123;</span><br><span class="line">  color: maroon;</span><br><span class="line">  margin-left: 40px;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>语法也是一样的.</p>
+<h3 id="Inline-CSS"><a href="#Inline-CSS" class="headerlink" title="Inline CSS"></a>Inline CSS</h3><p>行内的CSS写在标签后面的style属性里面, 记得加双引号:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">"color:blue;text-align:center;"</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"color:red;"</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="多个CSS定义冲突处理"><a href="#多个CSS定义冲突处理" class="headerlink" title="多个CSS定义冲突处理:"></a>多个CSS定义冲突处理:</h3><p>顺序是:</p>
+<ol>
+<li>Inline style (inside an HTML element)</li>
+<li>External and internal style sheets (in the head section)</li>
+<li>Browser default</li>
+</ol>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSS 如何选择目标</title>
     <url>/2020/03/03/CSS-Simple-Selectors/</url>
     <content><![CDATA[<h2 id="CSS-Selectors"><a href="#CSS-Selectors" class="headerlink" title="CSS Selectors"></a>CSS Selectors</h2><p>在构建CSS文件时, 有多种方法来对目标进行选择:</p>
 <ul>
