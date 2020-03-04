@@ -291,6 +291,200 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jamesliemr.com/2020/03/04/Unity-Inputs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JamesLimer's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/04/Unity-Inputs/" itemprop="url">Unity Inputs</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-04T16:14:26+08:00">
+                2020-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%88%B6%E4%BD%9C%E5%92%8C%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">游戏制作和建模</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/04/Unity-Inputs/" class="leancloud_visitors" data-flag-title="Unity Inputs">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  254
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Unity-Input-Module"><a href="#Unity-Input-Module" class="headerlink" title="Unity Input Module"></a>Unity Input Module</h2><p>Unity的输入模块, 用来得到用户的按键操作. 这个模块收录了大部分传统的按键(包括手机), 在编程的时候使用Input下的方法就可以访问.</p>
+<h3 id="正常输入"><a href="#正常输入" class="headerlink" title="正常输入:"></a>正常输入:</h3><p>使用<a href="https://docs.unity3d.com/ScriptReference/Input.GetAxis.html" target="_blank" rel="noopener">Input.GetAxis</a>来得到:</p>
+<ul>
+<li>“Horizontal”和”Vertical”的值, 分别对应”A, W, S, D”和方向键. </li>
+<li>“Mouse X”和”Mouse Y”的值, 对应鼠标的x, y的偏移量.</li>
+<li>“Fire1”, “Fire2”, “Fire3”对应的分别是Ctrl, Alt和Cmd.</li>
+</ul>
+<p>也可以新加一些输入, 具体的参考<a href="https://docs.unity3d.com/Manual/class-InputManager.html" target="_blank" rel="noopener">Input Manager</a>.</p>
+<p>使用<a href="https://docs.unity3d.com/ScriptReference/Input.GetButton.html" target="_blank" rel="noopener">Input.GetButton</a>来得到对应按键的事件是否按下.<br>(doc上的意思是最好不要用做运动, 因为<a href="https://docs.unity3d.com/ScriptReference/Input.GetAxis.html" target="_blank" rel="noopener">Input.GetAxis</a>会更加简单?)</p>
+<h3 id="手机终端输入"><a href="#手机终端输入" class="headerlink" title="手机终端输入:"></a>手机终端输入:</h3><p>使用<a href="https://docs.unity3d.com/ScriptReference/Input-touches.html" target="_blank" rel="noopener">Input.touches</a>来得到每一个手指的输入状态;<br>使用<a href="https://docs.unity3d.com/ScriptReference/Input-acceleration.html" target="_blank" rel="noopener">Input.acceleration</a>来得到对应的加速度;<br>使用<a href="https://docs.unity3d.com/ScriptReference/Input-accelerationEvents.html" target="_blank" rel="noopener">Input.accelerationEvents</a>来读取所有的加速度序列;<br>使用<a href="https://docs.unity3d.com/ScriptReference/Input-deviceOrientation.html" target="_blank" rel="noopener">Input.deviceOrientation</a>来得到手机在三维空间中的方向;</p>
+<h3 id="方法和属性"><a href="#方法和属性" class="headerlink" title="方法和属性:"></a>方法和属性:</h3><p>参考: <a href="https://docs.unity3d.com/ScriptReference/Input.html" target="_blank" rel="noopener">https://docs.unity3d.com/ScriptReference/Input.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jamesliemr.com/2020/03/03/CSS-How-To-Add/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -933,7 +1127,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -944,7 +1138,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -955,7 +1149,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1006,7 +1200,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">860</span>
+    <span title="Site words total count">1.1k</span>
   
 </div>
 
