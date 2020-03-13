@@ -87,12 +87,12 @@
 
 
 
-<meta name="description" content="Deeper and Wider Siamese Networks for Real-Time Visual TrackingAbstract: Siamese networks have drawn great attention in visual tracking because of their balanced accuracy and speed. However, the backb">
+<meta name="description" content="Deeper and Wider Siamese Networks for Real-Time Visual Tracking Abstract: Siamese networks have drawn great attention in visual tracking because of their balanced accuracy and speed. However, the back">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记">
 <meta property="og:url" content="https://jamesliemr.com/2020/03/11/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="JamesLimer&#39;s blog">
-<meta property="og:description" content="Deeper and Wider Siamese Networks for Real-Time Visual TrackingAbstract: Siamese networks have drawn great attention in visual tracking because of their balanced accuracy and speed. However, the backb">
+<meta property="og:description" content="Deeper and Wider Siamese Networks for Real-Time Visual Tracking Abstract: Siamese networks have drawn great attention in visual tracking because of their balanced accuracy and speed. However, the back">
 <meta property="og:image" content="https://jamesliemr.com/2020/03/11/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_1.png">
 <meta property="og:image" content="https://jamesliemr.com/images/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_2.png">
 <meta property="og:image" content="https://jamesliemr.com/images/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_3.png">
@@ -446,26 +446,34 @@
       
 
       
-        <h2 id="Deeper-and-Wider-Siamese-Networks-for-Real-Time-Visual-Tracking"><a href="#Deeper-and-Wider-Siamese-Networks-for-Real-Time-Visual-Tracking" class="headerlink" title="Deeper and Wider Siamese Networks for Real-Time Visual Tracking"></a>Deeper and Wider Siamese Networks for Real-Time Visual Tracking</h2><p>Abstract:</p>
+        <h2 id="deeper-and-wider-siamese-networks-for-real-time-visual-tracking">Deeper and Wider Siamese Networks for Real-Time Visual Tracking</h2>
+<p>Abstract:</p>
 <p>Siamese networks have drawn great attention in visual tracking because of their balanced accuracy and speed. However, the backbone networks used in Siamese trackers are relatively shallow, such as AlexNet [18], which does not fully take advantage of the capability of modern deep neural networks. In this paper, we investigate how to leverage deeper and wider convolutional neural networks to enhance tracking robustness and accuracy. We observe that direct replacement of backbones with existing powerful architectures, such as ResNet [14] and Inception [33], does not bring improvements. The main reasons are that 1)large increases in the receptive field of neurons lead to reduced feature discriminability and localization precision; and 2) the network padding for convolutions induces a positional bias in learning. To address these issues, we propose new residual modules to eliminate the negative impact of padding, and further design new architectures using these modules with controlled receptive field size and network stride. The designed architectures are lightweight and guarantee real-time tracking speed when applied to SiamFC [2] and SiamRPN [20]. Experiments show that solely due to the proposed network architectures, our SiamFC+ and SiamRPN+ obtain up to 9.8%/5.7% (AUC), 23.3%/8.8% (EAO) and 24.4%/25.0% (EAO) relative improvements over the original versions [2, 20] on the OTB-15, VOT-16 and VOT-17 datasets, respectively.</p>
-<h3 id="这篇文章要解决什么问题"><a href="#这篇文章要解决什么问题" class="headerlink" title="这篇文章要解决什么问题?"></a>这篇文章要解决什么问题?</h3><h4 id="大背景"><a href="#大背景" class="headerlink" title="大背景:"></a>大背景:</h4><p>一句话来说就是:<br><strong>现在的孪生神经网络的目标追踪算法普遍使用比较浅的卷机神经网络, 更深的神经网络并不能起到更好的效果.</strong></p>
-<h4 id="作者改进的方向"><a href="#作者改进的方向" class="headerlink" title="作者改进的方向:"></a>作者改进的方向:</h4><p>一句话来说就是:<br><strong>通过分析原因, 针对padding的改进了深度卷积神经网络的机制(提出了一个极有用的最小改进), 使得深度网络可以使用在目标追踪的任务中.</strong></p>
-<h3 id="这篇文章是如何做出假设的"><a href="#这篇文章是如何做出假设的" class="headerlink" title="这篇文章是如何做出假设的?"></a>这篇文章是如何做出假设的?</h3><h4 id="先是直觉性解释"><a href="#先是直觉性解释" class="headerlink" title="先是直觉性解释:"></a>先是直觉性解释:</h4><p>作者提到可能的解释是<strong>现有的更深和更宽的神经网络是根据目标识别任务来设计的, 物体的定位并不是主要目的</strong>, 但是目标追踪需要精确的目标定位和表达, 所以现有的网络会出现问题.</p>
-<h4 id="深入研究和分析"><a href="#深入研究和分析" class="headerlink" title="深入研究和分析:"></a>深入研究和分析:</h4><p>为了落实在具体的改进点上, 作者分析得到问题在三个主要因素的影响:</p>
+<h3 id="这篇文章要解决什么问题">这篇文章要解决什么问题?</h3>
+<h4 id="大背景">大背景:</h4>
+<p>一句话来说就是: <strong>现在的孪生神经网络的目标追踪算法普遍使用比较浅的卷机神经网络, 更深的神经网络并不能起到更好的效果.</strong></p>
+<h4 id="作者改进的方向">作者改进的方向:</h4>
+<p>一句话来说就是: <strong>通过分析原因, 针对padding的改进了深度卷积神经网络的机制(提出了一个极有用的最小改进), 使得深度网络可以使用在目标追踪的任务中.</strong></p>
+<h3 id="这篇文章是如何做出假设的">这篇文章是如何做出假设的?</h3>
+<h4 id="先是直觉性解释">先是直觉性解释:</h4>
+<p>作者提到可能的解释是<strong>现有的更深和更宽的神经网络是根据目标识别任务来设计的, 物体的定位并不是主要目的</strong>, 但是目标追踪需要精确的目标定位和表达, 所以现有的网络会出现问题.</p>
+<h4 id="深入研究和分析">深入研究和分析:</h4>
+<p>为了落实在具体的改进点上, 作者分析得到问题在三个主要因素的影响:</p>
 <ul>
 <li><p>感受野范围</p>
-<p><strong>感受野的范围决定了一个特征是由多大的区域集合而成的.</strong></p>
-</li>
+<p><strong>感受野的范围决定了一个特征是由多大的区域集合而成的.</strong></p></li>
 <li><p>卷积的步长</p>
-<p><strong>卷积的步长决定了确定位置的精确度, 尤其是对于小物体.</strong></p>
-</li>
+<p><strong>卷积的步长决定了确定位置的精确度, 尤其是对于小物体.</strong></p></li>
 <li><p>padding</p>
-<p><strong>padding引入了一个潜在的位置偏移</strong>, 当物体接近搜索图的边缘的时候, 由于padding的存在这个物体可能会难以被检测到.</p>
-</li>
+<p><strong>padding引入了一个潜在的位置偏移</strong>, 当物体接近搜索图的边缘的时候, 由于padding的存在这个物体可能会难以被检测到.</p></li>
 </ul>
-<h3 id="作者是如何深入分析的呢"><a href="#作者是如何深入分析的呢" class="headerlink" title="作者是如何深入分析的呢?"></a>作者是如何深入分析的呢?</h3><p>作者是用了消融实验, 从定量和定性的两个方面来分析可能的原因, 确定原因后依照实验结果作为参考, 提出了具体的改进:</p>
-<h4 id="定量分析"><a href="#定量分析" class="headerlink" title="定量分析:"></a>定量分析:</h4><p>作者根据不同网络骨架, 分别进行了对比实验, 用AUC的结果来衡量网络的能力:</p>
-<p><img src="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_1.png" alt="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_1"></p>
+<h3 id="作者是如何深入分析的呢">作者是如何深入分析的呢?</h3>
+<p>作者是用了消融实验, 从定量和定性的两个方面来分析可能的原因, 确定原因后依照实验结果作为参考, 提出了具体的改进:</p>
+<h4 id="定量分析">定量分析:</h4>
+<p>作者根据不同网络骨架, 分别进行了对比实验, 用AUC的结果来衡量网络的能力:</p>
+<figure>
+<img src="CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20阅读笔记.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20阅读笔记%20image_1.png" alt="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_1" /><figcaption>CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_1</figcaption>
+</figure>
 <p><img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_2.png" alt="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_2" style="zoom:50%;" /></p>
 <p>在这两张图中:</p>
 <ul>
@@ -475,18 +483,17 @@
 <li>PAD: 是否padding</li>
 <li>W: 宽度(inception的宽度)</li>
 </ul>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析:"></a>分析:</h5><ul>
-<li><p>步长: </p>
+<h5 id="分析">分析:</h5>
 <ul>
-<li><p><strong>在其他条件不变的情况下, 从4到8到16, 结果显著下降.</strong> </p>
+<li><p>步长:</p>
+<ul>
+<li><p><strong>在其他条件不变的情况下, 从4到8到16, 结果显著下降.</strong></p>
 <ul>
 <li>10 <em>vs</em>. 3 <em>vs</em>. 9 on AlexNet and VGG.</li>
 <li>9 <em>vs</em>. 2 <em>vs</em>. 8 on Incep. and ResNet.</li>
 </ul>
-<p>分析: 这说明了孪生神经网络目标追踪算法更需要中等层次的精细度.</p>
-</li>
-</ul>
-</li>
+<p>分析: 这说明了孪生神经网络目标追踪算法更需要中等层次的精细度.</p></li>
+</ul></li>
 <li><p>感受野:</p>
 <ul>
 <li><p><strong>最佳感受野范围应该是输入的图像z的60%∼80%, 且和网络的种类无关.</strong></p>
@@ -494,17 +501,13 @@
 <li>3 <em>to</em>. 7 on AlexNet and VGG.</li>
 <li>3 <em>to</em>. 7 on Incep. and ResNet.</li>
 </ul>
-<p>分析: 这说明了感受野的大小对于特征的聚合有很大的影响, 太大的感受野会使得目标的位置信息不明确, 太小的感受野又没办法抓取到整个物体的信息, 区分度会不够.</p>
-</li>
-</ul>
-</li>
+<p>分析: 这说明了感受野的大小对于特征的聚合有很大的影响, 太大的感受野会使得目标的位置信息不明确, 太小的感受野又没办法抓取到整个物体的信息, 区分度会不够.</p></li>
+</ul></li>
 <li><p>输出特征大小:</p>
 <ul>
 <li><p>按照观察到的信息, <strong>小的输出特征大小不能对结果有所增益</strong></p>
-<p>分析: 这是因为小的特征图没有足够的空间结构信息来表达物体, 所以不够鲁棒.</p>
-</li>
-</ul>
-</li>
+<p>分析: 这是因为小的特征图没有足够的空间结构信息来表达物体, 所以不够鲁棒.</p></li>
+</ul></li>
 <li><p>padding:</p>
 <ul>
 <li><p><strong>Padding会极大的降低网络的结果</strong></p>
@@ -512,39 +515,44 @@
 <li>5 <em>vs</em>. 6 on AlexNet and VGG</li>
 <li>4 <em>vs</em>. 5 on Incep. and ResNet</li>
 </ul>
-<p>分析: 作者做了更进一步的分析, 参考Table2.</p>
-</li>
+<p>分析: 作者做了更进一步的分析, 参考Table2.</p></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h5><p>总的来说, 在提出问题, 做出假设之后, 可以设定实验来验证且具有一定说服力; 作者的这一方法很值得学习.也有一些我自己的看法:</p>
+<h5 id="总结">总结:</h5>
+<p>总的来说, 在提出问题, 做出假设之后, 可以设定实验来验证且具有一定说服力; 作者的这一方法很值得学习.也有一些我自己的看法:</p>
 <ul>
 <li>步长有三组对比实验, 分别是4, 8, 16. 这样很扎实, 可以改进的点是可以在感受野是+0的情况下进行, +16的情况可能会有特殊(这样其实也已经可以说明问题了).</li>
 <li>感受野应该是作者分析的实验组最多的了, 这个部分做的很值得学习, 多组对比得到分析结果.</li>
 <li>输出特征大小其实是取决于感受野和步长的, 所以没什么可说的, 作者的分析也是很直观.</li>
 <li>padding的部分让我有些疑惑, 为什么padding不是一个网络对比, 而是不同的网络进行对比, 这有一些奇怪.</li>
 </ul>
-<h4 id="定性分析"><a href="#定性分析" class="headerlink" title="定性分析:"></a>定性分析:</h4><p>主要是解释了padding的问题, 如果进行padding, 那么虽然所有的examplar image得到的特征都是padding过的, 但是search image得到的特征就是有些是padding了的, 有些并没有发生padding. 由于两种特征的不兼容, 会降低结果的精度. 作者用下图补充了他的结果:</p>
+<h4 id="定性分析">定性分析:</h4>
+<p>主要是解释了padding的问题, 如果进行padding, 那么虽然所有的examplar image得到的特征都是padding过的, 但是search image得到的特征就是有些是padding了的, 有些并没有发生padding. 由于两种特征的不兼容, 会降低结果的精度. 作者用下图补充了他的结果:</p>
 <p><img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_3.png" style="zoom:50%;" /></p>
 <p>分析后得到的结论:</p>
-<ol>
+<ol type="1">
 <li>目标追踪算法的孪生神经网络需要较小的步长, 这决定了精度, 且不应该随着网络的加深而改变.</li>
 <li>感受野要根据exemplar image的大小而改变(用crop已经解决了这一个问题.), 具体设置应该是60%到80%.</li>
 <li>步长, 感受野, 输出特征大小应该作为整体来考虑, 因为他们是互相依赖的.</li>
-<li>对于全卷积孪生神经网络, 注重两个网络得到的结果的一致性很重要. </li>
+<li>对于全卷积孪生神经网络, 注重两个网络得到的结果的一致性很重要.</li>
 </ol>
-<h3 id="作者是如何解决问题的"><a href="#作者是如何解决问题的" class="headerlink" title="作者是如何解决问题的?"></a>作者是如何解决问题的?</h3><p>作者主要的改进其实是针对padding的, 为了消除padding的影响, 作者提出了两种方法, <strong>一种是直接不使用padding, 另一种是把padding影响的部分给crop掉</strong>. 显然作者使用了后一种方法, 于是就有了作者提出的cropping-inside residual (CIR)模块.</p>
-<h4 id="为什么不直接去掉padding呢"><a href="#为什么不直接去掉padding呢" class="headerlink" title="为什么不直接去掉padding呢?"></a>为什么不直接去掉padding呢?</h4><p>因为这样做的话ResNet这种残差结构就难以重复利用了.(因为在残差模块中有padding) 作者的目标是, 尽量小的改进的同时还可以利用之前网络的训练结果.</p>
-<h4 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法:"></a>具体方法:</h4><p>其实看到这里基本上就已经算是结束了, 前面的分析应该是最厉害的部分, 后面的改进十分的直观, 就是把收到padding影响的部分crop掉进行剔除:</p>
+<h3 id="作者是如何解决问题的">作者是如何解决问题的?</h3>
+<p>作者主要的改进其实是针对padding的, 为了消除padding的影响, 作者提出了两种方法, <strong>一种是直接不使用padding, 另一种是把padding影响的部分给crop掉</strong>. 显然作者使用了后一种方法, 于是就有了作者提出的cropping-inside residual (CIR)模块.</p>
+<h4 id="为什么不直接去掉padding呢">为什么不直接去掉padding呢?</h4>
+<p>因为这样做的话ResNet这种残差结构就难以重复利用了.(因为在残差模块中有padding) 作者的目标是, 尽量小的改进的同时还可以利用之前网络的训练结果.</p>
+<h4 id="具体方法">具体方法:</h4>
+<p>其实看到这里基本上就已经算是结束了, 前面的分析应该是最厉害的部分, 后面的改进十分的直观, 就是把收到padding影响的部分crop掉进行剔除:</p>
 <p><img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_4.png" style="zoom:50%;" /></p>
 <p>后面基本上是网络的架构设计的探索了, 有需要的时候再来参考吧.</p>
-<h3 id="作者是如何实验总结的"><a href="#作者是如何实验总结的" class="headerlink" title="作者是如何实验总结的?"></a>作者是如何实验总结的?</h3><ul>
+<h3 id="作者是如何实验总结的">作者是如何实验总结的?</h3>
+<ul>
 <li>和baseline进行对比实验</li>
 <li>和最新的结果进行对比实验</li>
 <li>和自己进行对比实验</li>
 </ul>
-<p>很直观, 不做评价…</p>
-<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结:"></a>总结:</h3><p>做科研重要的是如何提出问题, 提出问题后的分析和处理, 好的研究不是提出复杂的系统, 而是分析透彻后进行简单有效的改进, 这篇论文还是有很大的启发的.</p>
+<p>很直观, 不做评价...</p>
+<h3 id="总结-1">总结:</h3>
+<p>做科研重要的是如何提出问题, 提出问题后的分析和处理, 好的研究不是提出复杂的系统, 而是分析透彻后进行简单有效的改进, 这篇论文还是有很大的启发的.</p>
 
       
     </div>
@@ -719,7 +727,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Deeper-and-Wider-Siamese-Networks-for-Real-Time-Visual-Tracking"><span class="nav-number">1.</span> <span class="nav-text">Deeper and Wider Siamese Networks for Real-Time Visual Tracking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#这篇文章要解决什么问题"><span class="nav-number">1.1.</span> <span class="nav-text">这篇文章要解决什么问题?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大背景"><span class="nav-number">1.1.1.</span> <span class="nav-text">大背景:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作者改进的方向"><span class="nav-number">1.1.2.</span> <span class="nav-text">作者改进的方向:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这篇文章是如何做出假设的"><span class="nav-number">1.2.</span> <span class="nav-text">这篇文章是如何做出假设的?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先是直觉性解释"><span class="nav-number">1.2.1.</span> <span class="nav-text">先是直觉性解释:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深入研究和分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">深入研究和分析:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作者是如何深入分析的呢"><span class="nav-number">1.3.</span> <span class="nav-text">作者是如何深入分析的呢?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定量分析"><span class="nav-number">1.3.1.</span> <span class="nav-text">定量分析:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">分析:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">总结:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定性分析"><span class="nav-number">1.3.2.</span> <span class="nav-text">定性分析:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作者是如何解决问题的"><span class="nav-number">1.4.</span> <span class="nav-text">作者是如何解决问题的?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么不直接去掉padding呢"><span class="nav-number">1.4.1.</span> <span class="nav-text">为什么不直接去掉padding呢?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">具体方法:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作者是如何实验总结的"><span class="nav-number">1.5.</span> <span class="nav-text">作者是如何实验总结的?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">1.6.</span> <span class="nav-text">总结:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#deeper-and-wider-siamese-networks-for-real-time-visual-tracking"><span class="nav-number">1.</span> <span class="nav-text">Deeper and Wider Siamese Networks for Real-Time Visual Tracking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#这篇文章要解决什么问题"><span class="nav-number">1.1.</span> <span class="nav-text">这篇文章要解决什么问题?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大背景"><span class="nav-number">1.1.1.</span> <span class="nav-text">大背景:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作者改进的方向"><span class="nav-number">1.1.2.</span> <span class="nav-text">作者改进的方向:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这篇文章是如何做出假设的"><span class="nav-number">1.2.</span> <span class="nav-text">这篇文章是如何做出假设的?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先是直觉性解释"><span class="nav-number">1.2.1.</span> <span class="nav-text">先是直觉性解释:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深入研究和分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">深入研究和分析:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作者是如何深入分析的呢"><span class="nav-number">1.3.</span> <span class="nav-text">作者是如何深入分析的呢?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定量分析"><span class="nav-number">1.3.1.</span> <span class="nav-text">定量分析:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">分析:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">总结:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定性分析"><span class="nav-number">1.3.2.</span> <span class="nav-text">定性分析:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作者是如何解决问题的"><span class="nav-number">1.4.</span> <span class="nav-text">作者是如何解决问题的?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么不直接去掉padding呢"><span class="nav-number">1.4.1.</span> <span class="nav-text">为什么不直接去掉padding呢?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">具体方法:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作者是如何实验总结的"><span class="nav-number">1.5.</span> <span class="nav-text">作者是如何实验总结的?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">1.6.</span> <span class="nav-text">总结:</span></a></li></ol></li></ol></div>
             
 
           </div>
