@@ -291,6 +291,241 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jamesliemr.com/2020/03/13/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="James limer">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JamesLimer's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/13/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" itemprop="url">CVPR 2019 Learning Unsupervised Video Object Segmentation through Visual Attention 阅读笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-13T21:14:53+08:00">
+                2020-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/13/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="leancloud_visitors" data-flag-title="CVPR 2019 Learning Unsupervised Video Object Segmentation through Visual Attention 阅读笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Learning-Unsupervised-Video-Object-Segmentation-through-Visual-Attention"><a href="#Learning-Unsupervised-Video-Object-Segmentation-through-Visual-Attention" class="headerlink" title="Learning Unsupervised Video Object Segmentation through Visual Attention"></a>Learning Unsupervised Video Object Segmentation through Visual Attention</h2><p>abstract</p>
+<p><em>This paper conducts a systematic study on the role of visual attention in the Unsupervised Video Object Segmen- tation (UVOS) task. By elaborately annotating three popu- lar video segmentation datasets (DAVIS*16</em>, Youtube-Objects and SegTrack<em>V 2</em>) with dynamic eye-tracking data in the UVOS setting, for the first time, we quantitatively verified the high consistency of visual attention behavior among hu- man observers, and found strong correlation between hu- man attention and explicit primary object judgements dur- ing dynamic, task-driven viewing. Such novel observa- tions provide an in-depth insight into the underlying ra- tionale behind UVOS. Inspired by these findings, we de- couple UVOS into two sub-tasks: UVOS-driven Dynamic Visual Attention Prediction (DVAP) in spatiotemporal do- main, and Attention-Guided Object Segmentation (AGOS) in spatial domain. Our UVOS solution enjoys three ma- jor merits: 1) modular tra¥ining without using expensive video segmentation annotations, instead, using more afford- able dynamic fixation data to train the initial video atten- tion module and using existing fixation-segmentation paired static/image data to train the subsequent segmentation mod- ule; 2) comprehensive foreground understanding through multi-source learning; and 3) additional interpretability from the biologically-inspired and assessable attention. Ex- periments on popular benchmarks show that, even without using expensive video object mask annotations, our model achieves compelling performance in comparison with state- of-the-arts.</p>
+<h3 id="作者要解决什么问题"><a href="#作者要解决什么问题" class="headerlink" title="作者要解决什么问题?"></a>作者要解决什么问题?</h3><p><strong>本文想要解决UVOS任务中的由于缺少人为互动, 应该选取什么样的物体作为前景的问题.</strong></p>
+<p>Unsupervised Video Object Segmentation (UVOS) 就是从视频的背景中自动的标注出主要的物体. 由于用户在UVOS的任务中无法和分类器进行交互, 所以分类器很难在现实场景中确定主要的主体是哪一个, 同样的问题也存在于相似的领域video salient object detection (VSOD)中.<br>一般来说, UVOS可以分成两部分: <u>一部分是提取视频帧中重要的物体位置和信息, 一部分是对提取的结果进行分割</u>. <strong>现有的方法对于重要物体的提取缺乏解释性, 没有系统的衡量方法</strong>, 作者想要解决这一问题.</p>
+<h3 id="作者提出了什么假设"><a href="#作者提出了什么假设" class="headerlink" title="作者提出了什么假设?"></a>作者提出了什么假设?</h3><p><strong>作者认为人类的注意力机制应当作为根本的参考模型来驱动UVOS模型.</strong></p>
+<p>作者根据认知科学的研究, 认为在视觉感知的过程中, 人类可以快速的定位他们的注意力到视频中最重要的部分, 使得人类可以得到较好的速度和精度. 由于物体的重要性本身就是由观测者来进行评价的, 所以UVOS的前景应该是最吸引人类注意力的物件, 所以被选中的物件应该是和人类注意力表达一样的.</p>
+<h3 id="作者如何验证自己的假设"><a href="#作者如何验证自己的假设" class="headerlink" title="作者如何验证自己的假设?"></a>作者如何验证自己的假设?</h3><p><strong>通过对现有的三个视频分割数据集($DAVIS_{16}, Youtube-Objects<br>and\ SegTrack_{V2}$)进行眼动追踪数据的标注, 并对眼动数据和真实标签进行分析, 得到了支持作者假设的证据.</strong></p>
+<p>为了验证作者的猜想, 作者对三个数据集进行了真实的人类眼动数据的标注,这是第一次在数据集上收集人类的注意力信息. 这种复杂的数据集使作者可以进行两个实验:量化人类的注意力和机器学习的产出的一致性和相关性. 继而<strong>得到了两个结论</strong>:</p>
+<ol>
+<li><strong>人类对于UVOS任务存在着高度一致的注意力行为,即使主要物件在复杂的场景下有时被认为是一个不明确的命题.</strong></li>
+<li><strong>人类的注视点和人类认定的主要物体之间有很强的相关性</strong></li>
+</ol>
+<h3 id="作者是如何根据假设设计模型的"><a href="#作者是如何根据假设设计模型的" class="headerlink" title="作者是如何根据假设设计模型的?"></a>作者是如何根据假设设计模型的?</h3><h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview:"></a>Overview:</h4><p><strong>模仿人类的行为, 先生成一个根据大体的注意力机制来标定重要的位置然后再通过标定的位置来进行细致的检测</strong>.</p>
+<p>这两个结论启发了作者,将UVOS任务<strong>分为了两个子任务</strong>: </p>
+<ol>
+<li><strong>动态的视觉注意力预测dynamic visual attention prediction (DVAP).</strong></li>
+<li><strong>注意力导向的物体分割attention guided object segmentation (AGOS).</strong></li>
+</ol>
+<p>这样分任务的一个额外的优点是可以进行模块儿化的训练和使用容易得到的数据.DVAP可以之使用相对容易得到的动态的定点数据来进行训练.而分割数据可以用来训练AGOS模型.</p>
+<p>因为AGOS实际上就是通过注意力点和帧生成mask,所以只需要mask的数据作为对照就可以(注意力点可以直接得到). 粗略地说, 注意力是作为一个中间层的表达来建立起了动态前景识别和根据attention的物体分割. 这样的设计自然的模仿了人类的行为, 先<strong>生成一个根据大体的注意力机制来标定重要的位置然后再通过标定的位置来进行细致的检测</strong>.</p>
+<p>UVOS模型中, DVAP也就是注意力机制是基于CNN-convLSTM结构的,具体来讲就是convLSTM使用静态的CNN特征序列作为输入然后学习一个动态的visual attention. AGOS是基于全卷积网络结构的.在实际过程中,通过DVAP来生成目标的带位置,然后AGOS来进行具体分割.</p>
+<p><strong>模型的主要好处:</strong></p>
+<ul>
+<li>完全可监督可导的attention机制.</li>
+<li>通过多源的训练和共享参数得到的复杂的前景理解能力.</li>
+<li>可以使用大数据集进行训练.</li>
+<li>神经科学启发的,具有可解释性的attention机制.</li>
+</ul>
+<h4 id="Detail"><a href="#Detail" class="headerlink" title="Detail:"></a>Detail:</h4><p>![image-20200313211114867](/images/CVPR 2019 Learning Unsupervised Video Object Segmentation through Visual Attention 阅读笔记.assets/CVPR2019 Learning Unsupervised Video Object Segmentation through Visual Attention_image_1.png)</p>
+<h5 id="Problem-Formulation"><a href="#Problem-Formulation" class="headerlink" title="Problem Formulation"></a>Problem Formulation</h5><p>我们将输入的有$T$帧的视频记做${I_t \in R^{W\times H\times 3}}^T_{t=1}$,则UVOS任务的目标就是生成这个视频长度的mask序列${S_t \in {0,1}^{W\times H}}^T_{t=1}$.很多最近提出的UVOS的方法学习了一个函数$\mathcal{F}<em>{UVOS}: R^{W\times H\times 3\times T }\to {0,1}^{W\times H\times T}$可以直接将输出的视频转换成分割的mask:<br>$$<br>{S_t}^T</em>{t=1} = \mathcal{F}<em>{UVOS}({I_t}^T</em>{t=1})<br>$$<br>为了学习这样一个直接的从输入映射到输出的函数,需要非常大量的视频分割的标注, 在实践中他是非常难以得到的.</p>
+<p>在这篇文章中,作者提出了一个 input-attention-output 的方法来解决UVOS任务. 具体的来说,作者使用DVAP模型$\mathcal{F}<em>{DVAP}$来预测一个针对UVOS任务的Visual attention ${A_t \in [0,1]^{W’\times H’ \times 1}}^T</em>{t=1}$:<br>$$<br>{A_t}^T_{t=1} = \mathcal{F}<em>{DVAP}({I_t}^T</em>{t=1})<br>$$<br>AGOS模型$\mathcal{F}<em>{AGOS}$,接收一个单独的帧$I_t$和一个attention map $A_t$,然后产出一个最终的分割结果$S_t$:<br>$$<br>S_t = \mathcal{F}</em>{AGOS}(I_t,A_t), \ \ \ \ \ t\in {1,2,…,T}.<br>$$<br>就像在上图中展示的, ${A_t}^T_{t=1}$同时编码了静态的空间信息和时序的动态信息.这使得AGOS可以更加细致的在空间域中生成mask(也就是可以对于每一帧进行分类,而不是直接把整个视频拿过来进行分割).可以说,visual attention作为一个中间的目标表达,将DVAP和AGOS联系在了一起,来显式的标注出目标的位置.</p>
+<h5 id="DVAP-Module"><a href="#DVAP-Module" class="headerlink" title="DVAP Module"></a>DVAP Module</h5><p>DVAP模型建立在CNN-convLSTM的结构上,参照上图,CNN层使用了ResNet50的前五层.为了保留更多的空间特征,作者降低步长到1.</p>
+<p>给一个空间分辨率为$473\times 473$的视频序列${I_t}^T_{t=1}$则CNN最顶层的空间特征序列${X_t\in R^{30\times30\times2048}}^T_{t=1}$将被放入convLSTM层来学习一个动态注意力图(dynamic visual attention map). </p>
+<p>ConvLSTM, 被提出是LSTM的全卷积版本,并介绍了从input到state,state到state的卷积操作.ConvLSTM在这里是十分理想的,因为它可以保持空间的细节且对时间上的特征进行建模.DVAP模型$\mathcal{F}<em>{DVAP}$可以被这样表示:<br>$$<br>X_t = CNN(I_t), Y_t = convLSTM(X_t, Y</em>{t-1}), A_t = \mathcal{R}(Y_t),<br>$$<br>$Y_t$是一个代表着$t$时刻状态的3D张量的中间state(包括32个channel).$\mathcal{R}$时一个解码函数来将内部的state解码为一个attention map,具体方法是利用1x1的卷积层后面加上sigmoid激活函数.</p>
+<p>这一设计的一个好处是将attention部分和分割部分分开,这样两部分都可以专注于本身的结果进行训练.</p>
+<h5 id="AGOS-Module"><a href="#AGOS-Module" class="headerlink" title="AGOS Module"></a>AGOS Module</h5><p>从DVAP得到的attention图提取出了主要物体的信息,为AGOS提供了用来分割的信息.</p>
+<p>作者首先给出了<strong>General neural attention mechanism</strong>的定义:</p>
+<p>attention机制使得神经网络可以集中注意力在一个图中的一小块区域中,方法是计算出一个soft-mask,然后用这个mask乘上特征矩阵.让$i \in R^d$表示输入的向量,$z\in R^k$表示特征向量,$a \in [0,1]^k$是attention向量,$g\in R^k$是attention家成果的特征,$f_A$是attention的网络.则身neural attention可以被这样表示:<br>$$<br>a = f_A(i), \ \ \ z = f_Z(i),\ \ \ g = a\odot z<br>$$<br>$\odot$是元素间的乘法,$f_Z$岱庙特征提取网络. 一些attention 模型使用一个atteniton函数$f_A$后跟一个softmax来限制产出的值为[0,1]. 由于上面的attention网络完全可导,所以这个网络是可以端到端的尽行训练的.但是由于缺少attention的ground-truth,所以需要进行隐式的训练.</p>
+<p>然后给出了<strong>时间空间的,UVOS导向的attention mechanism</strong>:</p>
+<p>作者将DVAP作为attention模型结合近了AGOS. 让$Z_t$, $G_t$表示分割的特征和attention融合后的特征图,他们有同样的大小维度, 作者的UVOS-attention是如下定义的:<br>$$<br>\begin{aligned}<br>spatiotemporal\ attention &amp; :\ {A_t}^T_{t=1} = \mathcal{F}<em>{DVAP}({I_t}^T</em>{t=1}),\</p>
+<p>Spatial\ feature\ enhancement&amp; :\ Z_t = \mathcal{F}_Z(I_t),<br>G^c_t = A_t \odot Z^c_t,<br>\end{aligned}<br>$$<br>$\mathcal{F}_Z$用来从输入的帧$I_t$中提取分割的特征,$G^c$和$Z^c$表示特征G和Z的第$d$个channel.可见,UVOS attention编码了空间的前景信息,和时间的信息,使得AGOS模型可以在每一帧之间进行分割.</p>
+<p>对于那些attention的值为0的部分,相对的特征将被很大的抑制.但是这也会失去一些有用的信息,所以作者使用了特征加强的方法:<br>$$<br>G^c_t = (1+A_t) \odot Z^c_t<br>$$<br>作者使用了residual的方式来使用attention,相当于是在原图上进行了一个加强,同时, 由于注意力部分可以被真实数据所替代,AFOS可以被分开训练.</p>
+<p>AGOS模块也是建立在ResNet的块儿上,使用了DeepLab V3的ASPP模型.输入图片的大小是$I_t\in R^{437\times 437\times 3}$,根据ASPP模型$\mathcal{F}<em>{ASPP}$提取后的的分割特征为$Z_t\in R^{60 \times 60 \times1536}$. Atetntion 图$A_t$经过了x2的插值来扩大分辨率.最后,总的来说AGOS的方法是这样建模的:<br>$$<br>\begin{aligned}<br>spatiotemporal\ attention &amp; :\ {A_t}^T</em>{t=1} = \mathcal{F}<em>{DVAP}({I_t}^T</em>{t=1}),<br>\<br>Spatial\ feature\ enhancement&amp; :\ Z_t = \mathcal{F}_{ASPP}(I_t),<br>G^c_t = (1+A_t) \odot Z^c_t,<br>\end{aligned}<br>$$</p>
+<h5 id="Knowledge-sharing-between-DVAP-and-AGOS"><a href="#Knowledge-sharing-between-DVAP-and-AGOS" class="headerlink" title="Knowledge sharing between DVAP and AGOS:"></a>Knowledge sharing between DVAP and AGOS:</h5><p>DVAP和AGOS模型在提取特征的时候使用了相同的网络结构: ResNet的conv-1到conv-5层.为了让两个模型可以共享参数而不是各自学各自的作者提出让两个网络贡献前三个conv block(conv-1,conv-2和conv-3),然后各自学习后面的高维特征层.作者的解释是底层的layer具体用来捕捉低层级的特征(边缘,角的特征).高层的layer可以不过高级的,任务导向的信息. 作者这样的共享参数同时也可以减少计算量.</p>
+<h4 id="Implementation-Details"><a href="#Implementation-Details" class="headerlink" title="Implementation Details"></a>Implementation Details</h4><h5 id="Training-Loss"><a href="#Training-Loss" class="headerlink" title="Training Loss:"></a>Training Loss:</h5><p>对于DVAP来说,给一个输入帧$I\in R^{473\times 473\times3}$,产生一个attention map$A\in [0,1]^{30\times30}$.我们将真实的attention map和注视图表示为$P\in [0,1]^{30\times30}$和$F\in {0,1}^{30\times30}$. $F$是离散的图,记录了这个像素是否被人眼所注视, $P$是由$F$来进行雾化得到的.</p>
+<p>loss方程:<br>$$<br>\mathcal{L}<em>{DVAP}(A,P,F) = \mathcal{L}</em>{CE}(A,P) + \alpha_1\mathcal{L}<em>{NSS}(A,F) + \alpha_2\mathcal{L}</em>{SIM}(A,F) + \alpha_3\mathcal{L}<em>{CC}(A,P),<br>$$<br>$\mathcal{L}</em>{CE}$是正常的cross entropy loss, $\mathcal{L}<em>{CC}$, $\mathcal{L}</em>{NSS}$,$\mathcal{L}_{SIM}$是从几个attention的衡量方式的到的,分别是: Normalized Scanpath Saliency (NSS), Similarity Metric (SIM) and Linear Correlation Coefficient (CC).$\alpha_1$, $\alpha_2$, $\alpha_3$的权重都是0,1.</p>
+<p>这样的组合可以让attention的结果更加好,作者说是参照这篇论文的[4].</p>
+<p>对于AGOS来说,给一个输入帧$I$,它可以生成一个最终的分割结果$S\in[0,1]^{60\times60}$.让$M\in {0,1}^{60\times60}$来表示真实的mask的结果,则loss方程是这样被计算出来的:<br>$$<br>\mathcal{L}<em>{AGOS}(S,M) = \mathcal{L}</em>{CE}(S,M)<br>$$</p>
+<h5 id="Training-protocol"><a href="#Training-protocol" class="headerlink" title="Training protocol:"></a>Training protocol:</h5><p>作者同时使用了作者提出的注意力数据和attetnion-segmentation的图像数据来训练UVOS模型.训练数据分别使用视频的数据和图片作为数据, 视频数据用来训练DVAP模型.给一个训练视频帧的序列${I_t}^T_{t=1}$,让${A_t,P_t,F_t}^T_{t=1}$表示对应的attention预测图,真实的attention标签值和离散的attention标签值.作者训练模型来最小化下面的loss:<br>$$<br>\mathcal{L}^d = \sum^T_{t=1}\mathcal{L}<em>{DVAP}(A^d_t,P^d_t, F^d_t)<br>$$<br>这里面的$d$代表着动态的视频数据. 注意在这里作者没有考虑$\mathcal{L}</em>{AGOS}$来记录分割的ground-truth.</p>
+<p>图像训练的batch包括了一些attention-segmentation对的图像mask, 这些使用在同时训练DVAP和AGOS的模型的时候.</p>
+<p>让${I,S,F,M}$标记为图像的训练batch中的一个sample, 其中$I$为输入的帧,$S$为attention map, $F$为离散的fixation map, $M$为分割的mask. 则总的loss计算为:<br>$$<br>\mathcal{L}^s = \mathcal{L}<em>{DVAP}(A^s,P^s,F^s) + \mathcal{L}</em>{AGOS}(S^s,M^s)<br>$$<br> $s$代表着static, 通过使用static数据,在DVAP中convLSTM的时间为1. 每一个视频训练batch使用10 个连续的帧来训练,且video和开始的帧都是随机得到的. 每一个图像训练集合都包括了10个随机选取的图片.</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结:"></a>小结:</h3><p>这篇文章主要提供了<strong>人类注意力的数据集</strong>在当前的几个图像数据库, 然后又提出了一个根据人类注意力机制的方法, 使用convLSTM生成一个注意力图, 将这个注意力图作为中间表达,来指导后面的segmentation的进行.比起之前的效果要好,可解释性也要更加的强. <strong>主要的贡献是研究了注意力机制和人的注意力之间的一致关系.</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jamesliemr.com/2020/03/11/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1620,7 +1855,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1693,7 +1928,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">4.2k</span>
+    <span title="Site words total count">7.9k</span>
   
 </div>
 
