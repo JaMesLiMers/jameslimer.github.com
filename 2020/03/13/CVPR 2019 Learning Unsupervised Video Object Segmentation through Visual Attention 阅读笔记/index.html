@@ -96,7 +96,7 @@
 <meta property="og:description" content="Learning Unsupervised Video Object Segmentation through Visual Attentionabstract This paper conducts a systematic study on the role of visual attention in the Unsupervised Video Object Segmen- tation">
 <meta property="og:image" content="https://jamesliemr.com/images/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/image_1.png">
 <meta property="article:published_time" content="2020-03-13T13:14:53.000Z">
-<meta property="article:modified_time" content="2020-03-13T13:41:28.736Z">
+<meta property="article:modified_time" content="2020-03-13T14:14:25.878Z">
 <meta property="article:author" content="James limer">
 <meta property="article:tag" content="论文阅读笔记">
 <meta name="twitter:card" content="summary">
@@ -457,10 +457,10 @@
 <li>神经科学启发的,具有可解释性的attention机制.</li>
 </ul>
 <h4 id="Detail"><a href="#Detail" class="headerlink" title="Detail:"></a>Detail:</h4><p><img src="/images/CVPR 2019 Learning Unsupervised Video Object Segmentation through Visual Attention 阅读笔记.assets/image_1.png" style="zoom:50%;" /></p>
-<h5 id="Problem-Formulation"><a href="#Problem-Formulation" class="headerlink" title="Problem Formulation"></a>Problem Formulation</h5><p>我们将输入的有$T$帧的视频记做${I<em>t \in R^{W\times H\times 3}}^T</em>{t=1}$,则UVOS任务的目标就是生成这个视频长度的mask序列${S<em>t \in {0,1}^{W\times H}}^T</em>{t=1}$.很多最近提出的UVOS的方法学习了一个函数$\mathcal{F}_{UVOS}: R^{W\times H\times 3\times T }\to {0,1}^{W\times H\times T}$可以直接将输出的视频转换成分割的mask:</p>
+<h5 id="Problem-Formulation"><a href="#Problem-Formulation" class="headerlink" title="Problem Formulation"></a>Problem Formulation</h5><p>我们将输入的有$T$帧的视频记做${I<em>t \in R^{W\times H\times 3}}^T</em>{t=1}$ ,则UVOS任务的目标就是生成这个视频长度的mask序列${S<em>t \in {0,1}^{W\times H}}^T</em>{t=1}$ .很多最近提出的UVOS的方法学习了一个函数$\mathcal{F}_{UVOS}: R^{W\times H\times 3\times T }\to {0,1}^{W\times H\times T}$可以直接将输出的视频转换成分割的mask:</p>
 <script type="math/tex; mode=display">
 \{S_t\}^T_{t=1} = \mathcal{F}_{UVOS}(\{I_t\}^T_{t=1})</script><p>为了学习这样一个直接的从输入映射到输出的函数,需要非常大量的视频分割的标注, 在实践中他是非常难以得到的.</p>
-<p>在这篇文章中,作者提出了一个 input-attention-output 的方法来解决UVOS任务. 具体的来说,作者使用DVAP模型$\mathcal{F}<em>{DVAP}$来预测一个针对UVOS任务的Visual attention ${A_t \in [0,1]^{W’\times H’ \times 1}}^T</em>{t=1}$:</p>
+<p>在这篇文章中,作者提出了一个 input-attention-output 的方法来解决UVOS任务. 具体的来说,作者使用DVAP模型$\mathcal{F}<em>{DVAP}$来预测一个针对UVOS任务的Visual attention ${A_t \in [0,1]^{W’\times H’ \times 1}}^T</em>{t=1}$ :</p>
 <script type="math/tex; mode=display">
 \{A_t\}^T_{t=1} = \mathcal{F}_{DVAP}(\{I_t\}^T_{t=1})</script><p>AGOS模型$\mathcal{F}_{AGOS}$,接收一个单独的帧$I_t$和一个attention map $A_t$,然后产出一个最终的分割结果$S_t$:</p>
 <script type="math/tex; mode=display">
@@ -499,7 +499,7 @@ G^c_t = (1+A_t) \odot Z^c_t,
 <h4 id="Implementation-Details"><a href="#Implementation-Details" class="headerlink" title="Implementation Details"></a>Implementation Details</h4><h5 id="Training-Loss"><a href="#Training-Loss" class="headerlink" title="Training Loss:"></a>Training Loss:</h5><p>对于DVAP来说,给一个输入帧$I\in R^{473\times 473\times3}$,产生一个attention map$A\in [0,1]^{30\times30}$.我们将真实的attention map和注视图表示为$P\in [0,1]^{30\times30}$和$F\in {0,1}^{30\times30}$. $F$是离散的图,记录了这个像素是否被人眼所注视, $P$是由$F$来进行雾化得到的.</p>
 <p>loss方程:</p>
 <script type="math/tex; mode=display">
-\mathcal{L}_{DVAP}(A,P,F) = \mathcal{L}_{CE}(A,P) + \alpha_1\mathcal{L}_{NSS}(A,F) + \alpha_2\mathcal{L}_{SIM}(A,F) + \alpha_3\mathcal{L}_{CC}(A,P),</script><p>$\mathcal{L}<em>{CE}$是正常的cross entropy loss, $\mathcal{L}</em>{CC}$, $\mathcal{L}<em>{NSS}$,$\mathcal{L}</em>{SIM}$是从几个attention的衡量方式的到的,分别是: Normalized Scanpath Saliency (NSS), Similarity Metric (SIM) and Linear Correlation Coefficient (CC).$\alpha_1$, $\alpha_2$, $\alpha_3$的权重都是0,1.</p>
+\mathcal{L}_{DVAP}(A,P,F) = \mathcal{L}_{CE}(A,P) + \alpha_1\mathcal{L}_{NSS}(A,F) + \alpha_2\mathcal{L}_{SIM}(A,F) + \alpha_3\mathcal{L}_{CC}(A,P),</script><p>$\mathcal{L}<em>{CE}$是正常的cross entropy loss, $\mathcal{L}</em>{CC}$ , $\mathcal{L}<em>{NSS}$ ,$\mathcal{L}</em>{SIM}$ 是从几个attention的衡量方式的到的,分别是: Normalized Scanpath Saliency (NSS), Similarity Metric (SIM) and Linear Correlation Coefficient (CC).$\alpha_1$, $\alpha_2$, $\alpha_3$的权重都是0,1.</p>
 <p>这样的组合可以让attention的结果更加好,作者说是参照这篇论文的[4].</p>
 <p>对于AGOS来说,给一个输入帧$I$,它可以生成一个最终的分割结果$S\in[0,1]^{60\times60}$.让$M\in {0,1}^{60\times60}$来表示真实的mask的结果,则loss方程是这样被计算出来的:</p>
 <script type="math/tex; mode=display">
