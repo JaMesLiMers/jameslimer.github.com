@@ -94,13 +94,13 @@
 <meta property="og:url" content="https://jamesliemr.com/2020/03/13/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="JamesLimer&#39;s blog">
 <meta property="og:description" content="Learning Unsupervised Video Object Segmentation through Visual Attentionabstract This paper conducts a systematic study on the role of visual attention in the Unsupervised Video Object Segmen- tation">
-<meta property="og:image" content="https://jamesliemr.com/images/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR2019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention_image_1.png">
+<meta property="og:image" content="https://jamesliemr.com/images/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/image_1.png">
 <meta property="article:published_time" content="2020-03-13T13:14:53.000Z">
-<meta property="article:modified_time" content="2020-03-13T13:18:09.419Z">
+<meta property="article:modified_time" content="2020-03-13T13:20:35.799Z">
 <meta property="article:author" content="James limer">
 <meta property="article:tag" content="论文阅读笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jamesliemr.com/images/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR2019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention_image_1.png">
+<meta name="twitter:image" content="https://jamesliemr.com/images/CVPR%202019%20Learning%20Unsupervised%20Video%20Object%20Segmentation%20through%20Visual%20Attention%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/image_1.png">
 
 
 
@@ -456,7 +456,7 @@
 <li>可以使用大数据集进行训练.</li>
 <li>神经科学启发的,具有可解释性的attention机制.</li>
 </ul>
-<h4 id="Detail"><a href="#Detail" class="headerlink" title="Detail:"></a>Detail:</h4><img src="/images/CVPR 2019 Learning Unsupervised Video Object Segmentation through Visual Attention 阅读笔记.assets/CVPR2019 Learning Unsupervised Video Object Segmentation through Visual Attention_image_1.png" style="zoom:50%;" />
+<h4 id="Detail"><a href="#Detail" class="headerlink" title="Detail:"></a>Detail:</h4><img src="/images/CVPR 2019 Learning Unsupervised Video Object Segmentation through Visual Attention 阅读笔记.assets/image_1.png" style="zoom:50%;" />
 
 <h5 id="Problem-Formulation"><a href="#Problem-Formulation" class="headerlink" title="Problem Formulation"></a>Problem Formulation</h5><p>我们将输入的有$T$帧的视频记做${I_t \in R^{W\times H\times 3}}^T_{t=1}$,则UVOS任务的目标就是生成这个视频长度的mask序列${S_t \in {0,1}^{W\times H}}^T_{t=1}$.很多最近提出的UVOS的方法学习了一个函数$\mathcal{F}<em>{UVOS}: R^{W\times H\times 3\times T }\to {0,1}^{W\times H\times T}$可以直接将输出的视频转换成分割的mask:<br>$$<br>{S_t}^T</em>{t=1} = \mathcal{F}<em>{UVOS}({I_t}^T</em>{t=1})<br>$$<br>为了学习这样一个直接的从输入映射到输出的函数,需要非常大量的视频分割的标注, 在实践中他是非常难以得到的.</p>
 <p>在这篇文章中,作者提出了一个 input-attention-output 的方法来解决UVOS任务. 具体的来说,作者使用DVAP模型$\mathcal{F}<em>{DVAP}$来预测一个针对UVOS任务的Visual attention ${A_t \in [0,1]^{W’\times H’ \times 1}}^T</em>{t=1}$:<br>$$<br>{A_t}^T_{t=1} = \mathcal{F}<em>{DVAP}({I_t}^T</em>{t=1})<br>$$<br>AGOS模型$\mathcal{F}<em>{AGOS}$,接收一个单独的帧$I_t$和一个attention map $A_t$,然后产出一个最终的分割结果$S_t$:<br>$$<br>S_t = \mathcal{F}</em>{AGOS}(I_t,A_t), \ \ \ \ \ t\in {1,2,…,T}.<br>$$<br>就像在上图中展示的, ${A_t}^T_{t=1}$同时编码了静态的空间信息和时序的动态信息.这使得AGOS可以更加细致的在空间域中生成mask(也就是可以对于每一帧进行分类,而不是直接把整个视频拿过来进行分割).可以说,visual attention作为一个中间的目标表达,将DVAP和AGOS联系在了一起,来显式的标注出目标的位置.</p>
