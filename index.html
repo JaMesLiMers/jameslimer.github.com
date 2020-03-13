@@ -479,7 +479,7 @@ and\ SegTrack_{V2}\)</span>)进行眼动追踪数据的标注, 并对眼动数�
 <h4 id="detail">Detail:</h4>
 <p><img src="/images/CVPR 2019 Learning Unsupervised Video Object Segmentation through Visual Attention 阅读笔记.assets/image_1.png" style="zoom:50%;" /></p>
 <h5 id="problem-formulation">Problem Formulation</h5>
-<p>我们将输入的有<span class="math inline">\(T\)</span>帧的视频记做<span class="math inline">\(\{I_t \in R^{W\times H\times 3}\}^T_{t=1}\)</span> ,则UVOS任务的目标就是生成这个视频长度的mask序列<span class="math inline">\(\{S_t \in \{0,1\}^{W\times H}\}^T_{t=1}\)</span> .很多最近提出的UVOS的方法学习了一个函数<span class="math inline">\(\mathcal{F}_{UVOS}: R^{W\times H\times 3\times T }\to \{0,1\}^{W\times H\times T}\)</span>可以直接将输出的视频转换成分割的mask: <span class="math display">\[
+<p>我们将输入的有<span class="math inline">\(T\)</span>帧的视频记做$ {I_t R<sup>{WH3}}</sup>T_{t=1}$ ,则UVOS任务的目标就是生成这个视频长度的mask序列 <span class="math inline">\(\{S_t \in \{0,1\}^{W\times H}\}^T_{t=1}\)</span> .很多最近提出的UVOS的方法学习了一个函数<span class="math inline">\(\mathcal{F}_{UVOS}: R^{W\times H\times 3\times T }\to \{0,1\}^{W\times H\times T}\)</span>可以直接将输出的视频转换成分割的mask: <span class="math display">\[
 \{S_t\}^T_{t=1} = \mathcal{F}_{UVOS}(\{I_t\}^T_{t=1})
 \]</span> 为了学习这样一个直接的从输入映射到输出的函数,需要非常大量的视频分割的标注, 在实践中他是非常难以得到的.</p>
 <p>在这篇文章中,作者提出了一个 input-attention-output 的方法来解决UVOS任务. 具体的来说,作者使用DVAP模型<span class="math inline">\(\mathcal{F}_{DVAP}\)</span>来预测一个针对UVOS任务的Visual attention <span class="math inline">\(\{A_t \in [0,1]^{W&#39;\times H&#39; \times 1}\}^T_{t=1}\)</span> : <span class="math display">\[
