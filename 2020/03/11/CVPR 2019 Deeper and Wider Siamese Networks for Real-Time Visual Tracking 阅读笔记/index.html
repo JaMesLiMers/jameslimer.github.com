@@ -94,15 +94,16 @@
 <meta property="og:url" content="https://jamesliemr.com/2020/03/11/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="JamesLimer&#39;s blog">
 <meta property="og:description" content="Deeper and Wider Siamese Networks for Real-Time Visual TrackingAbstract: Siamese networks have drawn great attention in visual tracking because of their balanced accuracy and speed. However, the backb">
+<meta property="og:image" content="https://jamesliemr.com/2020/03/11/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_1.png">
 <meta property="og:image" content="https://jamesliemr.com/images/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_2.png">
 <meta property="og:image" content="https://jamesliemr.com/images/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_3.png">
 <meta property="og:image" content="https://jamesliemr.com/images/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_4.png">
 <meta property="article:published_time" content="2020-03-11T08:24:53.000Z">
-<meta property="article:modified_time" content="2020-03-11T08:27:51.984Z">
+<meta property="article:modified_time" content="2020-03-13T13:41:33.965Z">
 <meta property="article:author" content="James limer">
 <meta property="article:tag" content="论文阅读笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jamesliemr.com/images/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_2.png">
+<meta name="twitter:image" content="https://jamesliemr.com/2020/03/11/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%20image_1.png">
 
 
 
@@ -449,9 +450,8 @@
 </ul>
 <h3 id="作者是如何深入分析的呢"><a href="#作者是如何深入分析的呢" class="headerlink" title="作者是如何深入分析的呢?"></a>作者是如何深入分析的呢?</h3><p>作者是用了消融实验, 从定量和定性的两个方面来分析可能的原因, 确定原因后依照实验结果作为参考, 提出了具体的改进:</p>
 <h4 id="定量分析"><a href="#定量分析" class="headerlink" title="定量分析:"></a>定量分析:</h4><p>作者根据不同网络骨架, 分别进行了对比实验, 用AUC的结果来衡量网络的能力:</p>
-<p>![CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_1](CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_1.png)</p>
-<img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_2.png" alt="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_2" style="zoom:50%;" />
-
+<p><img src="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_1.png" alt="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_1"></p>
+<p><img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_2.png" alt="CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_2" style="zoom:50%;" /></p>
 <p>在这两张图中:</p>
 <ul>
 <li>RF: 感受野</li>
@@ -510,8 +510,7 @@
 <li>padding的部分让我有些疑惑, 为什么padding不是一个网络对比, 而是不同的网络进行对比, 这有一些奇怪.</li>
 </ul>
 <h4 id="定性分析"><a href="#定性分析" class="headerlink" title="定性分析:"></a>定性分析:</h4><p>主要是解释了padding的问题, 如果进行padding, 那么虽然所有的examplar image得到的特征都是padding过的, 但是search image得到的特征就是有些是padding了的, 有些并没有发生padding. 由于两种特征的不兼容, 会降低结果的精度. 作者用下图补充了他的结果:</p>
-<img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_3.png" style="zoom:50%;" />
-
+<p><img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_3.png" style="zoom:50%;" /></p>
 <p>分析后得到的结论:</p>
 <ol>
 <li>目标追踪算法的孪生神经网络需要较小的步长, 这决定了精度, 且不应该随着网络的加深而改变.</li>
@@ -522,8 +521,7 @@
 <h3 id="作者是如何解决问题的"><a href="#作者是如何解决问题的" class="headerlink" title="作者是如何解决问题的?"></a>作者是如何解决问题的?</h3><p>作者主要的改进其实是针对padding的, 为了消除padding的影响, 作者提出了两种方法, <strong>一种是直接不使用padding, 另一种是把padding影响的部分给crop掉</strong>. 显然作者使用了后一种方法, 于是就有了作者提出的cropping-inside residual (CIR)模块.</p>
 <h4 id="为什么不直接去掉padding呢"><a href="#为什么不直接去掉padding呢" class="headerlink" title="为什么不直接去掉padding呢?"></a>为什么不直接去掉padding呢?</h4><p>因为这样做的话ResNet这种残差结构就难以重复利用了.(因为在残差模块中有padding) 作者的目标是, 尽量小的改进的同时还可以利用之前网络的训练结果.</p>
 <h4 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法:"></a>具体方法:</h4><p>其实看到这里基本上就已经算是结束了, 前面的分析应该是最厉害的部分, 后面的改进十分的直观, 就是把收到padding影响的部分crop掉进行剔除:</p>
-<img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_4.png" style="zoom:50%;" />
-
+<p><img src="/images/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记.assets/CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记 image_4.png" style="zoom:50%;" /></p>
 <p>后面基本上是网络的架构设计的探索了, 有需要的时候再来参考吧.</p>
 <h3 id="作者是如何实验总结的"><a href="#作者是如何实验总结的" class="headerlink" title="作者是如何实验总结的?"></a>作者是如何实验总结的?</h3><ul>
 <li>和baseline进行对比实验</li>
@@ -1334,7 +1332,7 @@
         showTime(Counter);
       }
     });
-  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </script>
 
 
 
@@ -1346,6 +1344,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
