@@ -1,74 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Scrum Backlog Refinment Meeting</title>
-    <url>/2020/03/20/Scrum_2/</url>
-    <content><![CDATA[<h1 id="backlog-refinement-meeting">BACKLOG REFINEMENT MEETING</h1>
-<h2 id="backlog-refinment-meeting详解">Backlog Refinment Meeting详解</h2>
-<h3 id="关于product-backlog-item的解释">关于Product Backlog Item的解释:</h3>
-<h4 id="什么目标适合被放进product-backlog-items中">什么目标适合被放进Product Backlog Items中?</h4>
-<p>任何具有商业价值的, 或者需要花费团队时间和精力的工作, 都应该放进Product Backlog中.</p>
-<h4 id="什么样的product-backlog-item大小是合适的">什么样的Product Backlog Item大小是合适的?</h4>
-<p>一个合适的Product Backlog Item的大小最好是不大于<span class="math inline">\(\frac{1}{4}\)</span>的单个Sprint时间的.</p>
-<h4 id="一个product-backlog-item应该是怎样的形式">一个Product Backlog Item应该是怎样的形式?</h4>
-<p><img src="/images/Scrum_2.assets/image-20200320172638320.png" alt="image-20200320172638320" style="zoom:25%;" /></p>
-<ul>
-<li>who?</li>
-<li>what?</li>
-<li>why?</li>
-</ul>
+    <title>Scrum Sprint Planning Meeting</title>
+    <url>/2020/03/20/Scrum_3/</url>
+    <content><![CDATA[<h1 id="sprint-planning-meeting">SPRINT PLANNING MEETING</h1>
+<h2 id="sprint-planning-meeting详解">Sprint Planning Meeting详解</h2>
 <h3 id="会议介绍">会议介绍:</h3>
 <h4 id="会议作用">会议作用:</h4>
-<p><img src="/images/Scrum_2.assets/image-20200320174014070.png" alt="image-20200320174014070" style="zoom:25%;" /></p>
-<p>这个会议的存在意义也是为了在新的Sprint选择之前对Backlog进行一个调整和回顾, 来保证Sprint中的Backlog简单且可行.</p>
-<p>具体来说包括下面三部分:</p>
-<p><img src="/images/Scrum_2.assets/image-20200320174139529.png" alt="image-20200320174139529" style="zoom:25%;" /></p>
-<h4 id="在scrum中的位置">在Scrum中的位置?</h4>
-<p>会议中:</p>
-<p><img src="/images/Scrum_2.assets/image-20200320165723284.png" alt="image-20200320165723284" style="zoom:30%;" /></p>
-<p>时间上:</p>
-<p><img src="/images/Scrum_2.assets/image-20200320170054990.png" alt="image-20200320170054990" style="zoom:30%;" /></p>
-<p>其实是作为一个非正式的部分而存在的, 但是大家都认为有必要开这个会. 一般来说, 这个Meeting会在下一个Sprint plan meeting之前的几天开.</p>
-<h4 id="会议总时长">会议总时长:</h4>
-<p>大概两小时左右</p>
+<p>决定什么哪一些Product Backlog Item将被作为当前次的Sprint的目标.</p>
 <h4 id="会议参与人员">会议参与人员:</h4>
 <ul>
 <li>Project owner</li>
 <li>Scrum master</li>
 <li>Team member</li>
 </ul>
+<h4 id="在scrum中的位置">在Scrum中的位置?</h4>
+<p>会议中:</p>
+<p><img src="/images/Scrum_3.assets/image-20200320175107219.png" alt="image-20200320175107219" style="zoom:25%;" /></p>
+<p>时间上:</p>
+<p><img src="/images/Scrum_3.assets/image-20200320182350122.png" alt="image-20200320182350122" style="zoom:25%;" /></p>
+<h4 id="会议总时长">会议总时长:</h4>
+<p>大概四小时左右</p>
 <h4 id="会议目标">会议目标:</h4>
-<p><img src="/images/Scrum_2.assets/image-20200320171024064.png" alt="image-20200320171024064" style="zoom:33%;" /></p>
-<p>提出和分解较高优先级的Product Backlog Items, 保证每个Product Backlog Item都是:</p>
-<ul>
-<li>独立的</li>
-<li>可以讨论的</li>
-<li>有价值的</li>
-<li>可以被衡量的</li>
-<li>尽量小的</li>
-<li>可以被测试的</li>
-</ul>
+<p>选择出合适的Product Backlog Item进行实施, 并生成一个帮助完成所选的Backlog Item的task list.</p>
 <h4 id="会议流程">会议流程:</h4>
+<h5 id="part1">Part1:</h5>
+<p>这一部分用来选择哪一些Product Backlog Item要进行实施.</p>
 <ul>
-<li><p>PO来提出各个Product Backlog Item的优先级</p>
-<p><img src="/images/Scrum_2.assets/image-20200320171313644.png" alt="image-20200320171313644" style="zoom:25%;" /></p></li>
-<li><p>对优先级高的主要Item进行分析(需要所有的人参与):</p>
-<p><img src="/images/Scrum_2.assets/image-20200320171436133.png" alt="image-20200320171313644" style="zoom:25%;" /></p></li>
-<li><p>队员对于当前Item的工作量进行预估和讨论:</p>
-<p><img src="/images/Scrum_2.assets/image-20200320171912197.png" alt="image-20200320171912197" style="zoom:25%;" /></p></li>
-<li><p>如果认为当前Item的工作量过于大, 可以将一个项目分成多个不同的User Story, 并表达为符合要求的backlog:</p>
-<p><img src="/images/Scrum_2.assets/image-20200320172056539.png" alt="image-20200320172056539" style="zoom:25%;" /></p>
+<li>PO保证优先级是理想的.</li>
+<li>确定Sprint的时间
 <ul>
-<li>具体的分割操作可以是由任何人提出来的, 大家都可以进行补充和修改的提案</li>
+<li>(包括了分析, 设计, 实施, 测试和发布)</li>
+<li>保证这些时间内没有其他的事会打扰实施.</li>
 </ul></li>
-<li><p>重复上一步直到分割成非常小的块儿</p></li>
-<li><p>PO重新进行优先级排序.</p></li>
-<li><p>重复进行对优先级高的主要Item分析, 直到所有人都是Smaill.</p>
-<p><img src="/images/Scrum_2.assets/image-20200320173132523.png" alt="image-20200320173132523" style="zoom:25%;" /></p></li>
-<li><p>保证两个小时结束, 并不必一次把所有的backlog都打得很细.(但是至少有可以在下一次Sprint实行的list了)</p></li>
+<li>将优先级高的Backlog加入清单中
+<ul>
+<li>讨论好额外的要求</li>
+<li>明确完成的定义
+<ul>
+<li>Properly tested</li>
+<li>refactored</li>
+<li>potentially shippable</li>
+</ul></li>
+</ul></li>
 </ul>
-<h3 id="会议别称">会议别称:</h3>
-<p><img src="/images/Scrum_2.assets/image-20200320173800813.png" alt="image-20200320173800813" style="zoom:25%;" /></p>
+<h5 id="part2">Part2:</h5>
+<p>这一部分用来产生一系列的tasks.</p>
+<ul>
+<li>大家根据当前需要做的Backlog的各个方面提出相应的需要完成的task, 例如:
+<ul>
+<li>Test<br />
+</li>
+<li>Code</li>
+<li>Layout</li>
+<li>Database</li>
+<li>更多的可能的task:
+<ul>
+<li>和原来的系统进行结合</li>
+<li>确认设计的结果</li>
+<li>更新documentation</li>
+<li>推送升级信息</li>
+<li>购买器材</li>
+</ul></li>
+</ul></li>
+<li>保证这些可以在一个Sprint周期内完成.</li>
+</ul>
+<h5 id="part3">Part3:</h5>
+<ul>
+<li>重复上面的步骤直到认为难以完成为止.
+<ul>
+<li>(最好不要一次完成过多的Backlog, 多线程会降低人的效率)</li>
+</ul></li>
+</ul>
+<h4 id="scrum-master职责">Scrum Master职责:</h4>
+<p>保证这个team除了干好选择的事情以外不用收到其他事物的干扰.</p>
 ]]></content>
       <categories>
         <category>Agile Developing</category>
@@ -210,6 +215,223 @@
 <li>要求比较严格, 较难进行实践.</li>
 <li>需要勇气和毅力</li>
 </ol>
+]]></content>
+      <categories>
+        <category>Agile Developing</category>
+      </categories>
+      <tags>
+        <tag>Scrum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scrum Backlog Refinment Meeting</title>
+    <url>/2020/03/20/Scrum_2/</url>
+    <content><![CDATA[<h1 id="backlog-refinement-meeting">BACKLOG REFINEMENT MEETING</h1>
+<h2 id="backlog-refinment-meeting详解">Backlog Refinment Meeting详解</h2>
+<h3 id="关于product-backlog-item的解释">关于Product Backlog Item的解释:</h3>
+<h4 id="什么目标适合被放进product-backlog-items中">什么目标适合被放进Product Backlog Items中?</h4>
+<p>任何具有商业价值的, 或者需要花费团队时间和精力的工作, 都应该放进Product Backlog中.</p>
+<h4 id="什么样的product-backlog-item大小是合适的">什么样的Product Backlog Item大小是合适的?</h4>
+<p>一个合适的Product Backlog Item的大小最好是不大于<span class="math inline">\(\frac{1}{4}\)</span>的单个Sprint时间的.</p>
+<h4 id="一个product-backlog-item应该是怎样的形式">一个Product Backlog Item应该是怎样的形式?</h4>
+<p><img src="/images/Scrum_2.assets/image-20200320172638320.png" alt="image-20200320172638320" style="zoom:25%;" /></p>
+<ul>
+<li>who?</li>
+<li>what?</li>
+<li>why?</li>
+</ul>
+<h3 id="会议介绍">会议介绍:</h3>
+<h4 id="会议作用">会议作用:</h4>
+<p><img src="/images/Scrum_2.assets/image-20200320174014070.png" alt="image-20200320174014070" style="zoom:25%;" /></p>
+<p>这个会议的存在意义也是为了在新的Sprint选择之前对Backlog进行一个调整和回顾, 来保证Sprint中的Backlog简单且可行.</p>
+<p>具体来说包括下面三部分:</p>
+<p><img src="/images/Scrum_2.assets/image-20200320174139529.png" alt="image-20200320174139529" style="zoom:25%;" /></p>
+<h4 id="在scrum中的位置">在Scrum中的位置?</h4>
+<p>会议中:</p>
+<p><img src="/images/Scrum_2.assets/image-20200320165723284.png" alt="image-20200320165723284" style="zoom:30%;" /></p>
+<p>时间上:</p>
+<p><img src="/images/Scrum_2.assets/image-20200320170054990.png" alt="image-20200320170054990" style="zoom:30%;" /></p>
+<p>其实是作为一个非正式的部分而存在的, 但是大家都认为有必要开这个会. 一般来说, 这个Meeting会在下一个Sprint plan meeting之前的几天开.</p>
+<h4 id="会议总时长">会议总时长:</h4>
+<p>大概两小时左右</p>
+<h4 id="会议参与人员">会议参与人员:</h4>
+<ul>
+<li>Project owner</li>
+<li>Scrum master</li>
+<li>Team member</li>
+</ul>
+<h4 id="会议目标">会议目标:</h4>
+<p><img src="/images/Scrum_2.assets/image-20200320171024064.png" alt="image-20200320171024064" style="zoom:33%;" /></p>
+<p>提出和分解较高优先级的Product Backlog Items, 保证每个Product Backlog Item都是:</p>
+<ul>
+<li>独立的</li>
+<li>可以讨论的</li>
+<li>有价值的</li>
+<li>可以被衡量的</li>
+<li>尽量小的</li>
+<li>可以被测试的</li>
+</ul>
+<h4 id="会议流程">会议流程:</h4>
+<ul>
+<li><p>PO来提出各个Product Backlog Item的优先级</p>
+<p><img src="/images/Scrum_2.assets/image-20200320171313644.png" alt="image-20200320171313644" style="zoom:25%;" /></p></li>
+<li><p>对优先级高的主要Item进行分析(需要所有的人参与):</p>
+<p><img src="/images/Scrum_2.assets/image-20200320171436133.png" alt="image-20200320171313644" style="zoom:25%;" /></p></li>
+<li><p>队员对于当前Item的工作量进行预估和讨论:</p>
+<p><img src="/images/Scrum_2.assets/image-20200320171912197.png" alt="image-20200320171912197" style="zoom:25%;" /></p></li>
+<li><p>如果认为当前Item的工作量过于大, 可以将一个项目分成多个不同的User Story, 并表达为符合要求的backlog:</p>
+<p><img src="/images/Scrum_2.assets/image-20200320172056539.png" alt="image-20200320172056539" style="zoom:25%;" /></p>
+<ul>
+<li>具体的分割操作可以是由任何人提出来的, 大家都可以进行补充和修改的提案</li>
+</ul></li>
+<li><p>重复上一步直到分割成非常小的块儿</p></li>
+<li><p>PO重新进行优先级排序.</p></li>
+<li><p>重复进行对优先级高的主要Item分析, 直到所有人都是Smaill.</p>
+<p><img src="/images/Scrum_2.assets/image-20200320173132523.png" alt="image-20200320173132523" style="zoom:25%;" /></p></li>
+<li><p>保证两个小时结束, 并不必一次把所有的backlog都打得很细.(但是至少有可以在下一次Sprint实行的list了)</p></li>
+</ul>
+<h3 id="会议别称">会议别称:</h3>
+<p><img src="/images/Scrum_2.assets/image-20200320173800813.png" alt="image-20200320173800813" style="zoom:25%;" /></p>
+]]></content>
+      <categories>
+        <category>Agile Developing</category>
+      </categories>
+      <tags>
+        <tag>Scrum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scrum Daily Scrum Meeting</title>
+    <url>/2020/03/20/Scrum_4/</url>
+    <content><![CDATA[<h1 id="daily-scrum-meeting">DAILY SCRUM MEETING</h1>
+<h2 id="daily-scrum-meeting详解">Daily Scrum Meeting详解</h2>
+<h3 id="会议介绍">会议介绍:</h3>
+<h4 id="会议作用">会议作用:</h4>
+<p>每天进行的例会, 用来让大家了解互相的情况, 保证对队友负责, 及时提出需要讨论的内容;</p>
+<h4 id="会议参与人员">会议参与人员:</h4>
+<ul>
+<li>Project owner(不是一定必须)</li>
+<li>Scrum master</li>
+<li>Team member</li>
+</ul>
+<h4 id="在scrum中的位置">在Scrum中的位置?</h4>
+<p>会议中:</p>
+<p><img src="/images/Scrum_4.assets/image-20200320182251778.png" alt="image-20200320182251778" style="zoom:25%;" /></p>
+<p>时间上:</p>
+<p><img src="/images/Scrum_4.assets/image-20200320182336554.png" alt="image-20200320182336554" style="zoom:25%;" /></p>
+<h4 id="会议总时长">会议总时长:</h4>
+<p>大概15分钟左右</p>
+<h4 id="会议流程">会议流程:</h4>
+<p>非常的简单每个人轮流回答下面的三个问题即可:</p>
+<p><img src="/images/Scrum_4.assets/image-20200320193053275.png" alt="image-20200320193053275" style="zoom:25%;" /></p>
+<ul>
+<li><p>昨天我干了什么?(选择完成的task, 标记到completed的栏目中.)</p>
+<p><img src="/images/Scrum_4.assets/image-20200320193852318.png" alt="image-20200320193852318" style="zoom:25%;" /></p></li>
+<li><p>今天我要干什么? (选择自己的task, 标记到inprogress的栏目中.)</p>
+<p><img src="/images/Scrum_4.assets/image-20200320193417721.png" alt="image-20200320193417721" style="zoom:25%;" /></p></li>
+<li><p>我遇到了什么问题?(遇到的问题可以在后面小组内开会考虑)</p>
+<p><img src="/images/Scrum_4.assets/image-20200320194111226.png" alt="image-20200320194111226" style="zoom:25%;" /></p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Agile Developing</category>
+      </categories>
+      <tags>
+        <tag>Scrum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scrum Sprint Retrospective Meeting</title>
+    <url>/2020/03/20/Scrum_5/</url>
+    <content><![CDATA[<h1 id="sprint-retrospective-meeting">SPRINT RETROSPECTIVE MEETING</h1>
+<h2 id="sprint-retrospective-meeting详解">Sprint Retrospective Meeting详解</h2>
+<h3 id="会议介绍">会议介绍:</h3>
+<h4 id="会议作用">会议作用:</h4>
+<p>团队向任何和Sprint有关系的人展示一个Sprint下来的结果, 并获取他们的建议和意见. 并由PO总结那些Backlog完成了那些没有完成. 以此来保证项目的公开透明.</p>
+<h4 id="会议参与人员">会议参与人员:</h4>
+<ul>
+<li>Project owner</li>
+<li>Scrum master</li>
+<li>Team member</li>
+<li>Steak holders</li>
+</ul>
+<h4 id="在scrum中的位置">在Scrum中的位置?</h4>
+<p>会议中:</p>
+<p><img src="Scrum_4.assets/image-20200320182251778.png" alt="image-20200320182251778" style="zoom:25%;" /></p>
+<p>时间上:</p>
+<p><img src="Scrum_4.assets/image-20200320182336554.png" alt="image-20200320182336554" style="zoom:25%;" /></p>
+<h4 id="会议总时长">会议总时长:</h4>
+<p>大概15分钟左右</p>
+<h4 id="会议流程">会议流程:</h4>
+<ul>
+<li>Product Demostration
+<ul>
+<li>展示可用的新功能, 那些已经完成了, 那些没有完成.</li>
+</ul></li>
+<li>Product Owner declare what is done
+<ul>
+<li>PO测试后, 确认那些已经成功了和没有成功的部分.</li>
+<li>没有完成的将返回Backlog list中留作备选(可能重新评估优先级).</li>
+<li>没有完成的就是没有完成, 缺一点都是没有完成.</li>
+</ul></li>
+<li>(optional) Measure velocity
+<ul>
+<li>评估做的任务的大小, 然后进行速度统计?</li>
+<li>作用是长期时间内可以预测项目进行的速度.</li>
+</ul></li>
+<li>Steak holder feed back
+<ul>
+<li>通过用户的意见, 不断的修改我们对项目的预期.</li>
+<li>用户可以提出backlog, 由PO来进行管理增加.</li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Agile Developing</category>
+      </categories>
+      <tags>
+        <tag>Scrum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scrum Sprint Retrospective Meeting</title>
+    <url>/2020/03/20/Scrum_6/</url>
+    <content><![CDATA[<h1 id="sprint-retrospective-meeting">SPRINT RETROSPECTIVE MEETING</h1>
+<h2 id="sprint-retrospective-meeting-详解">Sprint Retrospective Meeting 详解:</h2>
+<h3 id="会议介绍">会议介绍:</h3>
+<h4 id="会议的作用">会议的作用:</h4>
+<p><img src="/images/Scrum_6.assets/image-20200320201544683.png" alt="image-20200320201544683" style="zoom:25%;" /></p>
+<p>如果说Sprint Review Meeting是对于产品的展示和回顾, 那么Sprint Retrospective Meeting就是对整个实践流程的展示和回顾.</p>
+<p>通过进行Sprint Retrospective Meeting, 队伍的成员可以互相磨合, 并从失败中总结教训, 从而更好的面对未来的挑战.</p>
+<h4 id="会议参与人员">会议参与人员:</h4>
+<ul>
+<li>Scrum master</li>
+<li>Team member</li>
+</ul>
+<h4 id="在scrum中的位置">在Scrum中的位置?</h4>
+<p>会议中:</p>
+<p><img src="/images/Scrum_6.assets/image-20200320201247450.png" alt="image-20200320201247450" style="zoom:25%;" /></p>
+<p>时间上:</p>
+<p><img src="/images/Scrum_4.assets/image-20200320182336554.png" alt="image-20200320182336554" style="zoom:25%;" /></p>
+<h4 id="经典的scrum-retrospective">经典的Scrum Retrospective;</h4>
+<h5 id="讨论好与坏">讨论好与坏:</h5>
+<p>Scrum没有定义除了下面以外的内容:</p>
+<p><img src="/images/Scrum_6.assets/image-20200320203227651.png" alt="image-20200320203227651" style="zoom:25%;" /></p>
+<ul>
+<li>哪里做的好</li>
+<li>哪里可以进行改进</li>
+</ul>
+<p>也可以进行其他的问题:</p>
+<p><img src="/images/Scrum_6.assets/image-20200320203308637.png" alt="image-20200320203308637" style="zoom:25%;" /></p>
+<ul>
+<li>我们学到了什么</li>
+<li>还有什么是我们不知道的</li>
+</ul>
+<h5 id="协商生成actions">协商生成Actions:</h5>
+<p>在列出问题后, 组员之间进行协商生成新的改进方法Actions:</p>
+<p><img src="/images/Scrum_6.assets/image-20200320203524512.png" alt="image-20200320203524512" style="zoom:25%;" /></p>
+<h2 id="具体的有需要可以参看series">具体的有需要可以参看Series:</h2>
+<p>https://www.youtube.com/watch?v=oHNkAhRo-is&amp;list=PLqhi6C6sK8aZz_Hz3Fo6cjXum3iAAXkMo&amp;index=6</p>
 ]]></content>
       <categories>
         <category>Agile Developing</category>
