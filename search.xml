@@ -152,7 +152,7 @@
 <h4 id="什么样的product-backlog-item大小是合适的">什么样的Product Backlog Item大小是合适的?</h4>
 <p>一个合适的Product Backlog Item的大小最好是不大于<span class="math inline">\(\frac{1}{4}\)</span>的单个Sprint时间的.</p>
 <h4 id="一个product-backlog-item应该是怎样的形式">一个Product Backlog Item应该是怎样的形式?</h4>
-<p><img src="Scrum_2.assets/image-20200320172638320.png" alt="image-20200320172638320" style="zoom:25%;" /></p>
+<p><img src="/images/Scrum_2.assets/image-20200320172638320.png" alt="image-20200320172638320" style="zoom:25%;" /></p>
 <ul>
 <li>who?</li>
 <li>what?</li>
@@ -160,15 +160,15 @@
 </ul>
 <h3 id="会议介绍">会议介绍:</h3>
 <h4 id="会议作用">会议作用:</h4>
-<p><img src="Scrum_2.assets/image-20200320174014070.png" alt="image-20200320174014070" style="zoom:25%;" /></p>
+<p><img src="/images/Scrum_2.assets/image-20200320174014070.png" alt="image-20200320174014070" style="zoom:25%;" /></p>
 <p>这个会议的存在意义也是为了在新的Sprint选择之前对Backlog进行一个调整和回顾, 来保证Sprint中的Backlog简单且可行.</p>
 <p>具体来说包括下面三部分:</p>
-<p><img src="Scrum_2.assets/image-20200320174139529.png" alt="image-20200320174139529" style="zoom:25%;" /></p>
+<p><img src="/images/Scrum_2.assets/image-20200320174139529.png" alt="image-20200320174139529" style="zoom:25%;" /></p>
 <h4 id="在scrum中的位置">在Scrum中的位置?</h4>
 <p>会议中:</p>
-<p><img src="Scrum_2.assets/image-20200320165723284.png" alt="image-20200320165723284" style="zoom:30%;" /></p>
+<p><img src="/images/Scrum_2.assets/image-20200320165723284.png" alt="image-20200320165723284" style="zoom:30%;" /></p>
 <p>时间上:</p>
-<p><img src="Scrum_2.assets/image-20200320170054990.png" alt="image-20200320170054990" style="zoom:30%;" /></p>
+<p><img src="/images/Scrum_2.assets/image-20200320170054990.png" alt="image-20200320170054990" style="zoom:30%;" /></p>
 <p>其实是作为一个非正式的部分而存在的, 但是大家都认为有必要开这个会. 一般来说, 这个Meeting会在下一个Sprint plan meeting之前的几天开.</p>
 <h4 id="会议总时长">会议总时长:</h4>
 <p>大概两小时左右</p>
@@ -179,7 +179,7 @@
 <li>Team member</li>
 </ul>
 <h4 id="会议目标">会议目标:</h4>
-<p><img src="Scrum_2.assets/image-20200320171024064.png" alt="image-20200320171024064" style="zoom:33%;" /></p>
+<p><img src="/images/Scrum_2.assets/image-20200320171024064.png" alt="image-20200320171024064" style="zoom:33%;" /></p>
 <p>提出和分解较高优先级的Product Backlog Items, 保证每个Product Backlog Item都是:</p>
 <ul>
 <li>独立的</li>
@@ -192,24 +192,24 @@
 <h4 id="会议流程">会议流程:</h4>
 <ul>
 <li><p>PO来提出各个Product Backlog Item的优先级</p>
-<p><img src="Scrum_2.assets/image-20200320171313644.png" alt="image-20200320171313644" style="zoom:25%;" /></p></li>
+<p><img src="/images/Scrum_2.assets/image-20200320171313644.png" alt="image-20200320171313644" style="zoom:25%;" /></p></li>
 <li><p>对优先级高的主要Item进行分析(需要所有的人参与):</p>
-<p><img src="Scrum_2.assets/image-20200320171436133.png" alt="image-20200320171313644" style="zoom:25%;" /></p></li>
+<p><img src="/images/Scrum_2.assets/image-20200320171436133.png" alt="image-20200320171313644" style="zoom:25%;" /></p></li>
 <li><p>队员对于当前Item的工作量进行预估和讨论:</p>
-<p><img src="Scrum_2.assets/image-20200320171912197.png" alt="image-20200320171912197" style="zoom:25%;" /></p></li>
+<p><img src="/images/Scrum_2.assets/image-20200320171912197.png" alt="image-20200320171912197" style="zoom:25%;" /></p></li>
 <li><p>如果认为当前Item的工作量过于大, 可以将一个项目分成多个不同的User Story, 并表达为符合要求的backlog:</p>
-<p><img src="Scrum_2.assets/image-20200320172056539.png" alt="image-20200320172056539" style="zoom:25%;" /></p>
+<p><img src="/images/Scrum_2.assets/image-20200320172056539.png" alt="image-20200320172056539" style="zoom:25%;" /></p>
 <ul>
 <li>具体的分割操作可以是由任何人提出来的, 大家都可以进行补充和修改的提案</li>
 </ul></li>
 <li><p>重复上一步直到分割成非常小的块儿</p></li>
 <li><p>PO重新进行优先级排序.</p></li>
 <li><p>重复进行对优先级高的主要Item分析, 直到所有人都是Smaill.</p>
-<p><img src="Scrum_2.assets/image-20200320173132523.png" alt="image-20200320173132523" style="zoom:25%;" /></p></li>
+<p><img src="/images/Scrum_2.assets/image-20200320173132523.png" alt="image-20200320173132523" style="zoom:25%;" /></p></li>
 <li><p>保证两个小时结束, 并不必一次把所有的backlog都打得很细.(但是至少有可以在下一次Sprint实行的list了)</p></li>
 </ul>
 <h3 id="会议别称">会议别称:</h3>
-<p><img src="Scrum_2.assets/image-20200320173800813.png" alt="image-20200320173800813" style="zoom:25%;" /></p>
+<p><img src="/images/Scrum_2.assets/image-20200320173800813.png" alt="image-20200320173800813" style="zoom:25%;" /></p>
 ]]></content>
       <categories>
         <category>Agile Developing</category>
