@@ -649,8 +649,97 @@ G^c_t = (1+A_t) \odot Z^c_t,
       </tags>
   </entry>
   <entry>
-    <title>CVPR 2019 Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记</title>
-    <url>/2020/03/11/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</url>
+    <title>Discriminative and Robust Online Learning for Siamese Visual Tracking阅读笔记</title>
+    <url>/2020/03/11/Arxiv%202019%20Discriminative%20and%20Robust%20Online%20Learning%20for%20Siamese%20Visual%20Tracking/</url>
+    <content><![CDATA[<h2 id="insight">Insight:</h2>
+<p>在Tracking领域中, 最近比较火的以Siamese网络为基础的生成模型占主导, 但是同时也有一些严重的问题, 原理是Siamese网络的模型只对目标进行识别, 忽略了背景的信息, 所以更加容易被一些干扰项误导, 更进一步的讲, Siamese网络模型一般只使用固定的模版进行匹配搜索, 在没有不断更新的情况下很容易被物体的一些形变给误导.</p>
+<p>相对而言, 判别模型可以缓解上面生成模型的问题??(为什么没有解释清楚), 但是也有一些缺点, 就是慢, 需要在线进行学习.</p>
+<p>这篇文章就是想要将在线学习算法和siamese算法进行结合.</p>
+<h2 id="方法">方法:</h2>
+<p>结合的方法就是提出了两个分支, 一个是Siamese网络的分支, 一个是一个在线学习的classification的分支, 这两个一个是生成模型一个是判别模型, 最后判别模型根据生成模型的结果进行协调而得到一个比较好的结果.</p>
+<p>具体结构看图:</p>
+<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117153656365.png" alt="image-20191117153656365" style="zoom:50%;" /></p>
+<p>上面的部分为Siamese网络模型的部分, 和SiameseRPN, SiamMask, SiamFC一样的. 下面的部分为作者提出的在线训练的Classifier, 具体结构如图:</p>
+<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117153803969.png" alt="image-20191117153803969" style="zoom:50%;" /></p>
+<p>这个Classifier使用了在空间和channel上的attention, 在进行训练的时候, 只进行训练Filter的模型部分. 训练时候根据的就是Siamese的分类结果来进行训练, 为此作者使用了一个<span class="math inline">\(f^{cls}_M\)</span>分支进行推测目标的位置来指导Classifier进行训练.</p>
+<p>在进行追踪的过程中, 作者还使用了一种在线更新模版的方法, 具体操作看图:</p>
+<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117154325852.png" alt="image-20191117154325852" style="zoom:50%;" /></p>
+<p>这样子切出来模版, 然后对比预测结果:</p>
+<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117154358630.png" alt="image-20191117154358630" style="zoom:50%;" /></p>
+<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117154502649.png" alt="image-20191117154502649" style="zoom:50%;" /></p>
+<p>通过对比最好的类别score的大小(是否会有差错?), 还有对应的IOU的大小(为什么是对应的两个??), 我们可以决定是否对模版进行更新.</p>
+<h2 id="小结">小结</h2>
+<p>总之就是这样啦, 这篇文章在siamese网络的外部维护了一个新的Classifier来进行辅助, 在增强分类能力的同时也可以在线的进行模版更新.</p>
+<p>这样的方法的缺点还是主要在于online training, 对比SiameseRPN 下降了70%, 但是精度和鲁棒性确实都有所提升, 说明在线更新还是有意义的, RPN模型也确实是有在外部改进的空间的.</p>
+]]></content>
+      <categories>
+        <category>论文阅读笔记</category>
+      </categories>
+      <tags>
+        <tag>Arxiv 2019</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking 阅读笔记</title>
+    <url>/2020/03/11/Arxiv%202018%20DAWN%20Dual%20Augmented%20Memory%20Network%20for%20Unsupervised%20Video%20Object%20Tracking%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="思路">思路:</h2>
+<p>这篇文章前面有Mem Track了, 所以这个架构是已经由Tianyu yang提出了, 这篇文章将SiamTrack做了改进并且将背景记忆引入了进来.</p>
+<h2 id="模型架构">模型架构:</h2>
+<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/1.png" /></p>
+<p>同样分为三部分:</p>
+<h3 id="特征提取">特征提取:</h3>
+<p>主要用来提取的网络还是SiamFC的网络, 特征提取后将会分别输入到三个分支中:</p>
+<ul>
+<li>ROI分支, 将会收到新的特征和已经预测到的上一帧的BBOX, ROI部分输出一个nxnxc大小的矩阵F, 而且在结合了记忆产出的模版后会产生新的BBOX.(<span class="math inline">\(f^{n\times n \times c}\)</span>)</li>
+<li>前景分支, 输入一个ROI部分预测的BBOX, 输出一个新的前景记忆<span class="math inline">\(F_{fore}\)</span>.(<span class="math inline">\(f^{m\times m \times c}\)</span>)</li>
+<li>背景分支, 输入一个ROI的背景部分, 产出一个北京的特征用来写入记忆库.(<span class="math inline">\(f^{n\times n \times c}\)</span>)</li>
+</ul>
+<h3 id="前景的attention记忆">前景的Attention记忆:</h3>
+<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/2.png" /></p>
+<p>在Mem Track里面, attention是这样定义的, 作者认为这一结构只是一个简单的协议, 在实际的运行中这样的注意力机制得到的结果往往是模型在追踪部分的背景, 并且只能记住物体和背景相连的一部分特征. 因此一旦物体和背景的相对位置发生改变, 则系统就会乱掉了, 参考:</p>
+<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/3.png" /></p>
+<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/4.png" /></p>
+<ul>
+<li>这说明做好可视化非常的重要, 要收集所有可能得到的信息来做改进.</li>
+</ul>
+<p>针对这一个问题, 作者提出了使用memory augmentation的方法, 并以此提出了新的attention模块儿:</p>
+<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/5.png" /></p>
+<p>作者的想法也比较直观, 就是使用上一次提取出来的模版来进行一次分类, 然后就可以得到一个先验, 先验有了以后再进行attention的一个融合, 输入的仍然是Average pooling的结果.</p>
+<ul>
+<li>确实这样的方法非常的直观且有用, 值得借鉴.</li>
+<li>是不是可以把这个思想和多层精细化的思想结合起来呢?</li>
+</ul>
+<p>这样的方法和MemTrack相比, 有以下几点advantage:</p>
+<ol type="1">
+<li>通过使用上一帧构建的模版来进行attention, 使得上下帧联系的更加紧密了.这是一种更加直接的方法.</li>
+<li>作者的方法使得作者可以使用第一帧的模版来进行初始化LSTM层.</li>
+<li>在上一帧还没有进行压缩的模版相比于LSTM的层有更加详细的信息.</li>
+</ol>
+<h3 id="记忆操作">记忆操作:</h3>
+<p>DAWN使用了标准的LSTM, 和Layer Normalization和dropout机制. 输入进前景背景的控制单元的是<span class="math inline">\(F_{att}\)</span>和<span class="math inline">\(F_{avg}\)</span>. LSTM产出的<span class="math inline">\(h_t\)</span>在进行未来的操作得到门控和weight.</p>
+<p>使用的还是MemTracking的那一套:</p>
+<p>在读取的时候使用cosin来衡量相似度, 在写的时候没有了erase参数:</p>
+<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/image-20190925202647498.png" /></p>
+<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/image-20190925202656917.png" /></p>
+<p>上面是结构和描述.</p>
+<h2 id="双记忆结构">双记忆结构:</h2>
+<p>其实就是将提取出来的前景记忆和背景记忆相减来得到抑制了的特征图, 之后再进行一个互相关操作.</p>
+<p>带来了两点提升:</p>
+<ol type="1">
+<li>当被遮挡的时候因为背景已经被记住了所以可以正确识别</li>
+<li>在相似的背景下可以很好的抑制背景.</li>
+</ol>
+]]></content>
+      <categories>
+        <category>论文阅读笔记</category>
+      </categories>
+      <tags>
+        <tag>Arxiv 2018</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Deeper and Wider Siamese Networks for Real-Time Visual Tracking 阅读笔记</title>
+    <url>/2020/03/10/CVPR%202019%20Deeper%20and%20Wider%20Siamese%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="deeper-and-wider-siamese-networks-for-real-time-visual-tracking">Deeper and Wider Siamese Networks for Real-Time Visual Tracking</h2>
 <p>Abstract:</p>
 <p>Siamese networks have drawn great attention in visual tracking because of their balanced accuracy and speed. However, the backbone networks used in Siamese trackers are relatively shallow, such as AlexNet [18], which does not fully take advantage of the capability of modern deep neural networks. In this paper, we investigate how to leverage deeper and wider convolutional neural networks to enhance tracking robustness and accuracy. We observe that direct replacement of backbones with existing powerful architectures, such as ResNet [14] and Inception [33], does not bring improvements. The main reasons are that 1)large increases in the receptive field of neurons lead to reduced feature discriminability and localization precision; and 2) the network padding for convolutions induces a positional bias in learning. To address these issues, we propose new residual modules to eliminate the negative impact of padding, and further design new architectures using these modules with controlled receptive field size and network stride. The designed architectures are lightweight and guarantee real-time tracking speed when applied to SiamFC [2] and SiamRPN [20]. Experiments show that solely due to the proposed network architectures, our SiamFC+ and SiamRPN+ obtain up to 9.8%/5.7% (AUC), 23.3%/8.8% (EAO) and 24.4%/25.0% (EAO) relative improvements over the original versions [2, 20] on the OTB-15, VOT-16 and VOT-17 datasets, respectively.</p>
@@ -763,96 +852,7 @@ G^c_t = (1+A_t) \odot Z^c_t,
         <category>论文阅读笔记</category>
       </categories>
       <tags>
-        <tag>CVPR 2019</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Discriminative and Robust Online Learning for Siamese Visual Tracking阅读笔记</title>
-    <url>/2020/03/11/Arxiv%202019%20Discriminative%20and%20Robust%20Online%20Learning%20for%20Siamese%20Visual%20Tracking/</url>
-    <content><![CDATA[<h2 id="insight">Insight:</h2>
-<p>在Tracking领域中, 最近比较火的以Siamese网络为基础的生成模型占主导, 但是同时也有一些严重的问题, 原理是Siamese网络的模型只对目标进行识别, 忽略了背景的信息, 所以更加容易被一些干扰项误导, 更进一步的讲, Siamese网络模型一般只使用固定的模版进行匹配搜索, 在没有不断更新的情况下很容易被物体的一些形变给误导.</p>
-<p>相对而言, 判别模型可以缓解上面生成模型的问题??(为什么没有解释清楚), 但是也有一些缺点, 就是慢, 需要在线进行学习.</p>
-<p>这篇文章就是想要将在线学习算法和siamese算法进行结合.</p>
-<h2 id="方法">方法:</h2>
-<p>结合的方法就是提出了两个分支, 一个是Siamese网络的分支, 一个是一个在线学习的classification的分支, 这两个一个是生成模型一个是判别模型, 最后判别模型根据生成模型的结果进行协调而得到一个比较好的结果.</p>
-<p>具体结构看图:</p>
-<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117153656365.png" alt="image-20191117153656365" style="zoom:50%;" /></p>
-<p>上面的部分为Siamese网络模型的部分, 和SiameseRPN, SiamMask, SiamFC一样的. 下面的部分为作者提出的在线训练的Classifier, 具体结构如图:</p>
-<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117153803969.png" alt="image-20191117153803969" style="zoom:50%;" /></p>
-<p>这个Classifier使用了在空间和channel上的attention, 在进行训练的时候, 只进行训练Filter的模型部分. 训练时候根据的就是Siamese的分类结果来进行训练, 为此作者使用了一个<span class="math inline">\(f^{cls}_M\)</span>分支进行推测目标的位置来指导Classifier进行训练.</p>
-<p>在进行追踪的过程中, 作者还使用了一种在线更新模版的方法, 具体操作看图:</p>
-<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117154325852.png" alt="image-20191117154325852" style="zoom:50%;" /></p>
-<p>这样子切出来模版, 然后对比预测结果:</p>
-<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117154358630.png" alt="image-20191117154358630" style="zoom:50%;" /></p>
-<p><img src="/images/arxiv-2019 Discriminative and Robust Online Learning for Siamese Visual Tracking.assets/image-20191117154502649.png" alt="image-20191117154502649" style="zoom:50%;" /></p>
-<p>通过对比最好的类别score的大小(是否会有差错?), 还有对应的IOU的大小(为什么是对应的两个??), 我们可以决定是否对模版进行更新.</p>
-<h2 id="小结">小结</h2>
-<p>总之就是这样啦, 这篇文章在siamese网络的外部维护了一个新的Classifier来进行辅助, 在增强分类能力的同时也可以在线的进行模版更新.</p>
-<p>这样的方法的缺点还是主要在于online training, 对比SiameseRPN 下降了70%, 但是精度和鲁棒性确实都有所提升, 说明在线更新还是有意义的, RPN模型也确实是有在外部改进的空间的.</p>
-]]></content>
-      <categories>
-        <category>论文阅读笔记</category>
-      </categories>
-      <tags>
-        <tag>Arxiv 2019</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Arxiv 2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking 阅读笔记</title>
-    <url>/2020/03/11/Arxiv%202018%20DAWN%20Dual%20Augmented%20Memory%20Network%20for%20Unsupervised%20Video%20Object%20Tracking%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="思路">思路:</h2>
-<p>这篇文章前面有Mem Track了, 所以这个架构是已经由Tianyu yang提出了, 这篇文章将SiamTrack做了改进并且将背景记忆引入了进来.</p>
-<h2 id="模型架构">模型架构:</h2>
-<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/1.png" /></p>
-<p>同样分为三部分:</p>
-<h3 id="特征提取">特征提取:</h3>
-<p>主要用来提取的网络还是SiamFC的网络, 特征提取后将会分别输入到三个分支中:</p>
-<ul>
-<li>ROI分支, 将会收到新的特征和已经预测到的上一帧的BBOX, ROI部分输出一个nxnxc大小的矩阵F, 而且在结合了记忆产出的模版后会产生新的BBOX.(<span class="math inline">\(f^{n\times n \times c}\)</span>)</li>
-<li>前景分支, 输入一个ROI部分预测的BBOX, 输出一个新的前景记忆<span class="math inline">\(F_{fore}\)</span>.(<span class="math inline">\(f^{m\times m \times c}\)</span>)</li>
-<li>背景分支, 输入一个ROI的背景部分, 产出一个北京的特征用来写入记忆库.(<span class="math inline">\(f^{n\times n \times c}\)</span>)</li>
-</ul>
-<h3 id="前景的attention记忆">前景的Attention记忆:</h3>
-<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/2.png" /></p>
-<p>在Mem Track里面, attention是这样定义的, 作者认为这一结构只是一个简单的协议, 在实际的运行中这样的注意力机制得到的结果往往是模型在追踪部分的背景, 并且只能记住物体和背景相连的一部分特征. 因此一旦物体和背景的相对位置发生改变, 则系统就会乱掉了, 参考:</p>
-<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/3.png" /></p>
-<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/4.png" /></p>
-<ul>
-<li>这说明做好可视化非常的重要, 要收集所有可能得到的信息来做改进.</li>
-</ul>
-<p>针对这一个问题, 作者提出了使用memory augmentation的方法, 并以此提出了新的attention模块儿:</p>
-<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/5.png" /></p>
-<p>作者的想法也比较直观, 就是使用上一次提取出来的模版来进行一次分类, 然后就可以得到一个先验, 先验有了以后再进行attention的一个融合, 输入的仍然是Average pooling的结果.</p>
-<ul>
-<li>确实这样的方法非常的直观且有用, 值得借鉴.</li>
-<li>是不是可以把这个思想和多层精细化的思想结合起来呢?</li>
-</ul>
-<p>这样的方法和MemTrack相比, 有以下几点advantage:</p>
-<ol type="1">
-<li>通过使用上一帧构建的模版来进行attention, 使得上下帧联系的更加紧密了.这是一种更加直接的方法.</li>
-<li>作者的方法使得作者可以使用第一帧的模版来进行初始化LSTM层.</li>
-<li>在上一帧还没有进行压缩的模版相比于LSTM的层有更加详细的信息.</li>
-</ol>
-<h3 id="记忆操作">记忆操作:</h3>
-<p>DAWN使用了标准的LSTM, 和Layer Normalization和dropout机制. 输入进前景背景的控制单元的是<span class="math inline">\(F_{att}\)</span>和<span class="math inline">\(F_{avg}\)</span>. LSTM产出的<span class="math inline">\(h_t\)</span>在进行未来的操作得到门控和weight.</p>
-<p>使用的还是MemTracking的那一套:</p>
-<p>在读取的时候使用cosin来衡量相似度, 在写的时候没有了erase参数:</p>
-<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/image-20190925202647498.png" /></p>
-<p><img src="/images/Arxiv-2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking阅读笔记.assets/image-20190925202656917.png" /></p>
-<p>上面是结构和描述.</p>
-<h2 id="双记忆结构">双记忆结构:</h2>
-<p>其实就是将提取出来的前景记忆和背景记忆相减来得到抑制了的特征图, 之后再进行一个互相关操作.</p>
-<p>带来了两点提升:</p>
-<ol type="1">
-<li>当被遮挡的时候因为背景已经被记住了所以可以正确识别</li>
-<li>在相似的背景下可以很好的抑制背景.</li>
-</ol>
-]]></content>
-      <categories>
-        <category>论文阅读笔记</category>
-      </categories>
-      <tags>
-        <tag>Arxiv 2018</tag>
+        <tag>CVPR 2018</tag>
       </tags>
   </entry>
   <entry>
@@ -1282,7 +1282,7 @@ L_{all} = \sum_i \sum_jL(Z^i,X^j)\cdot\Omega(i,j)\\
       </tags>
   </entry>
   <entry>
-    <title>CVPR 2016 Modeling and Propagating CNNs in a Tree Structure for Visual Tracking 阅读笔记</title>
+    <title>Modeling and Propagating CNNs in a Tree Structure for Visual Tracking 阅读笔记</title>
     <url>/2020/03/10/CVPR%202016%20Modeling%20and%20Propagating-CNNs-in-a-Tree-Structure%20for%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="modeling-and-propagating-cnns-in-a-tree-structure-for-visual-tracking">Modeling and Propagating CNNs in a Tree Structure for Visual Tracking</h2>
 <p>Abstract: We present an online visual tracking algorithm by managing multiple target appearance models in a tree structure. The proposed algorithm employs Convolutional Neural Networks (CNNs) to represent target appearances, where multiple CNNs collaborate to estimate target states and determine the desirable paths for online model updates in the tree. By maintaining multiple CNNs in diverse branches of tree structure, it is convenient to deal with multi-modality in target appearances and preserve model reliability through smooth updates along tree paths. Since multiple CNNs share all parameters in convolutional layers, it takes advantage of multiple models with little extra cost by saving memory space and avoiding redundant network evaluations. The final target state is estimated by sampling target candidates around the state in the previous frame and identifying the best sample in terms of a weighted average score from a set of active CNNs. Our algorithm illustrates outstanding performance compared to the state-of-the-art techniques in challenging datasets such as online tracking benchmark and visual object tracking challenge.</p>
