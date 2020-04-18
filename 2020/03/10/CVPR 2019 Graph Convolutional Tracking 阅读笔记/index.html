@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="gmR2fDqjgLN49m4mW_EsnwTKedrllWiOodcWTsKlycI" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CVPR 2019," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="abstract siamese神经网络已经逐渐大火,但是大多数的siamese方法没有完全的根据目标在不同上下文中的时间空间特征来建立模型.事实上,时空信息可以为增强目标的表述提供更多的信息,且上下文信息对于在线的学习目标定位有很好的辅助作用.为了综合利用历史模板的时空结构且结合上下文的信息,文章提出了图卷积(GCN)的tracking方法(下简称GCT).特别的,GCT方法在siamese结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Graph Convolutional Tracking 阅读笔记">
+<meta property="og:url" content="https://jamesliemr.com/2020/03/10/CVPR%202019%20Graph%20Convolutional%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="JamesLimer&#39;s blog">
+<meta property="og:description" content="abstract siamese神经网络已经逐渐大火,但是大多数的siamese方法没有完全的根据目标在不同上下文中的时间空间特征来建立模型.事实上,时空信息可以为增强目标的表述提供更多的信息,且上下文信息对于在线的学习目标定位有很好的辅助作用.为了综合利用历史模板的时空结构且结合上下文的信息,文章提出了图卷积(GCN)的tracking方法(下简称GCT).特别的,GCT方法在siamese结构">
+<meta property="og:image" content="https://jamesliemr.com/2020/03/10/CVPR%202019%20Graph%20Convolutional%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/Graph%20Convolutional%20Tracking%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="https://jamesliemr.com/2020/03/10/CVPR%202019%20Graph%20Convolutional%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/Graph%20Convolutional%20Tracking%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/ST-GCN.png">
+<meta property="og:image" content="https://jamesliemr.com/2020/03/10/CVPR%202019%20Graph%20Convolutional%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/Graph%20Convolutional%20Tracking%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/ST-%E6%B5%81%E7%A8%8B.jpg">
+<meta property="article:published_time" content="2020-03-10T09:24:53.000Z">
+<meta property="article:modified_time" content="2020-04-18T10:21:26.488Z">
+<meta property="article:author" content="James limer">
+<meta property="article:tag" content="CVPR 2019">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jamesliemr.com/2020/03/10/CVPR%202019%20Graph%20Convolutional%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/Graph%20Convolutional%20Tracking%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.assets/%E6%B5%81%E7%A8%8B.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jamesliemr.com/2020/03/10/CVPR 2019 Graph Convolutional Tracking 阅读笔记/"/>
+
+
+
+
+
+  <title>Graph Convolutional Tracking 阅读笔记 | JamesLimer's blog</title>
+  
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('code').forEach(code => {
+        const text = code.innerHTML;
+        is_inline_math = /^\$(.*)\$$/.exec(text);
+        is_display_math = /^\$\$(.*)\$\$$/ms.exec(text) || /^\\begin\{.+\}(.*)\\end\{.+\}/ms.exec(text);
+        if (is_inline_math || is_display_math) {
+          code.parentElement.classList.add('has-jax');
+          if (is_inline_math) {
+            code.outerHTML = "<span class=yuuki_mathjax_inline>" + text + "</span>";
+          } else {
+            code.outerHTML = "<span class=yuuki_mathjax_display>" + text + "</span>";
+          }
+        }
+      });
+    });</script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JamesLimer's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Welcome!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jamesliemr.com/2020/03/10/CVPR%202019%20Graph%20Convolutional%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="James limer">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JamesLimer's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Graph Convolutional Tracking 阅读笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-10T17:24:53+08:00">
+                2020-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">论文阅读笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/10/CVPR%202019%20Graph%20Convolutional%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="leancloud_visitors" data-flag-title="Graph Convolutional Tracking 阅读笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="abstract">abstract</h2>
+<p>siamese神经网络已经逐渐大火,但是大多数的siamese方法没有完全的根据目标在不同上下文中的时间空间特征来建立模型.事实上,时空信息可以为增强目标的表述提供更多的信息,且上下文信息对于在线的学习目标定位有很好的辅助作用.为了综合利用历史模板的时空结构且结合上下文的信息,文章提出了图卷积(GCN)的tracking方法(下简称GCT).特别的,GCT方法在siamese结构中结合了两类图卷积神经网络来对target的模板建模. 文章用时空的GCN来对target的模板进行构建,也就是说GCN用来利用上下文来学习一个合适的特征以实现更好的目标识别.GCT实现了sota并在gpu上有50fps的成绩</p>
+<h2 id="motivation">motivation</h2>
+<p>可以看出这一篇是尝试将时空信息引入siamese在线模板构建的框架中.</p>
+<p>利用了图神经网络提取时空中的目标特征来构建鲁棒的模板,以便于siamese网络方法对于各种distractor更加有区分度.</p>
+<h2 id="introduction">Introduction</h2>
+<p>作者罗列了一些tracking遇到的难题例如 <u>遮挡</u>,<u>背景杂乱</u>,<u>光照变化</u>,<u>规模变化</u>,<u>移动模糊</u>,和<u>物体形变</u>.</p>
+<p>作者举例说明了SiamFC的方法在物体外貌发生显著的变化的时候表现不好,改进方法如attention<a href="http://www.dcs.bbk.ac.uk/~sjmaybank/CVPR18RASTrackCameraV3.3.pdf" target="_blank" rel="noopener" title="attention">1</a>, dynamic updating<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8237458" target="_blank" rel="noopener" title="DCF dynamic updating">2</a>, structured modeling<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Yunhua_Zhang_Structured_Siamese_Network_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="strctured modeling">3</a>有一定的效果</p>
+<p>作者指出siam方法没有完全的利用时空的上下文信息,原因有二:</p>
+<ol type="1">
+<li><p>大多数Siamese架构的trackers利用最开始的那一帧来作为template,问题就是在实际的视频中物体的场景是不断改变的,物体的观察角度,物体的运动,形变和光照也是不断改变的.</p>
+<p>作者引用了一种新的角度<a href="https://arxiv.org/pdf/1707.05553.pdf" target="_blank" rel="noopener" title="Spectral Filter Tracking">4</a>,在tracking的过程中,为了识别旋转和变化不变性,图像可以被看作网格结构.文章中的方法也是受到启发按照图像网格编码特征.</p></li>
+<li><p>物体实例上下文的信息也起到了重要的辅助分类作用.<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8099635" target="_blank" rel="noopener" title="Context-Aware Correlation Filter Tracking CVPR2017可以参考">5</a>因为缺少在线的上下文特征学习器,tracking算法很难去捕捉目标的本体,背景和状态.在这里作者指出物体的上下文信息可以很好的指导tracking. 作者指出一些基于attention<a href="http://www.dcs.bbk.ac.uk/~sjmaybank/CVPR18RASTrackCameraV3.3.pdf" target="_blank" rel="noopener" title="attention">1</a>,<a href="https://arxiv.org/pdf/1711.01124.pdf" target="_blank" rel="noopener" title="End-to-end Flow Correlation Tracking with Spatial-temporal Attention 用光流(FlowTrack)">6</a>和transformation learning<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Yunhua_Zhang_Structured_Siamese_Network_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="strctured modeling">3</a>的算法用到了前几帧的信息但没有利用到本身帧的信息.</p>
+<p>由上作者提出要一个可以自动提时空特征的模块,由于如果把template cacate到一起作3d卷集,则需要的计算量太大,于是作者使用图神经网络来进行提特征.</p>
+<p>这篇文章的主要贡献:</p>
+<ol type="1">
+<li>第一次将GCN和siamese网络结合在了一起</li>
+<li>GCN使模型可以根据上下文和时空特征在线更新,从而使效果更佳鲁棒</li>
+<li>可以实时的运行并达到sota</li>
+</ol>
+<h2 id="related-work">related work</h2>
+<h3 id="siamese起源">Siamese起源:</h3>
+<ol type="1">
+<li>SINT<a href="https://arxiv.org/pdf/1605.05863.pdf" target="_blank" rel="noopener" title="SINT">7</a> ,线下训练了一个matching function来在在线的情况下寻找一个相似的target. 虽然SINT有一个比较不错的tracking结果但是速度只有2fps.</li>
+<li>为了解决速度慢的情况, Bertinetto等人提出了SiamFC来实施在编码后的空间中进行实例匹配, 实现了86fps的速度,从此Siam方法进入大众的视野:
+<ol type="1">
+<li>之后Guo等人提出了DSiam<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8237458" target="_blank" rel="noopener" title="DCF dynamic updating">2</a>,用transormation learning的方法来进行online learning.</li>
+<li>Wang等人提出了一种基于attention机制的siamese 学习方法<a href="http://www.dcs.bbk.ac.uk/~sjmaybank/CVPR18RASTrackCameraV3.3.pdf" target="_blank" rel="noopener" title="attention">1</a>, 减轻了overfitting的问题且增强了区分能力</li>
+<li>一些其他的方法也很快的提出:
+<ol type="1">
+<li>two-fold learning<a href="https://arxiv.org/pdf/1802.08817.pdf" target="_blank" rel="noopener" title="A Twofold Siamese Network for Real-Time Object Tracking">选1</a></li>
+<li>triplet loss optimization<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Xingping_Dong_Triplet_Loss_with_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="triplet loss optimization">选2</a></li>
+<li>region proposal network<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Li_High_Performance_Visual_CVPR_2018_paper.pdf" target="_blank" rel="noopener" title="SiamRPN">选3</a></li>
+<li>adversarial learning<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Wang_SINT_Robust_Visual_CVPR_2018_paper.pdf" target="_blank" rel="noopener" title="SINT++: Robust Visual Tracking via Adversarial Positive Instance Generation">选4</a></li>
+<li>deep reinforcement learning<a href="https://arxiv.org/pdf/1708.02973.pdf" target="_blank" rel="noopener" title="Learning Policies for Adaptive Tracking with Deep Feature Cascades">选5</a></li>
+<li>distractor-aware module<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Zheng_Zhu_Distractor-aware_Siamese_Networks_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="Distractor-aware siamese networks for visual(Diasiam)">选6</a></li>
+<li>structured modeling<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Yunhua_Zhang_Structured_Siamese_Network_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="Structured Siamese Network for Real-Time">选7</a></li>
+</ol></li>
+<li>本篇试着使用图神经网络进行时空上的学习,应该是第一例</li>
+</ol></li>
+</ol>
+<hr />
+<h3 id="目标模板构建的框架">目标模板构建的框架:</h3>
+<p>为了应对目标在不同场景下的变化,一些在线构建莫表模板的算法很快被提出,有些用到了时间空间上的信息来建立模型,但是这些方法有些不可以被端到端的训练,有些只用了整体的模板框架.</p>
+<ol type="1">
+<li>作者举了一个整体模板框架的例子FlowTrack<a href="https://arxiv.org/pdf/1711.01124.pdf" target="_blank" rel="noopener" title="End-to-end Flow Correlation Tracking with Spatial-temporal Attention 用光流(FlowTrack)">6</a>, 这篇文章使用从之前的动作提取的光流特征,这支考虑到了目标整体的表达而忽略了局部的特征. <u>而目前的研究方向就是从整体到局部的特征表达.</u></li>
+<li>作者同时举了几个个局部的特征表达的例子:
+<ol type="1">
+<li>spectral tracking<a href="https://arxiv.org/pdf/1707.05553.pdf" target="_blank" rel="noopener" title="Spectral Filter Tracking">4</a> 利用graph filter确定每个pixel的位置.</li>
+<li>SANet<a href="https://arxiv.org/pdf/1611.06878.pdf" target="_blank" rel="noopener" title="SANet Structure-Aware Network for Visual Tracking">8</a> 和下面的做成了end-to-end的范式来学习局部结构</li>
+<li>Zhang<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Yunhua_Zhang_Structured_Siamese_Network_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="strctured modeling">3</a> 利用了随机场作为message传播的module来学习siamese网络中的局部结构</li>
+</ol></li>
+<li>这些局部特征的tracker只利用了之前的帧中的空间结构信息,而忽略了长视频中的时间信息,作者认为这篇文章的方法同时利用了时间和空间中的结构和上下文信息来在siamese网络中定位.</li>
+</ol>
+<hr />
+<h3 id="图神经网络在视觉中的应用">图神经网络在视觉中的应用:</h3>
+<p>图神经网络可以在任何结构的图中进行应用,一般有两种方法来构建图神经网络:</p>
+<p>一方面,一些方法在空间上对于所有node进行前向传播<a href="https://persagen.com/files/misc/scarselli2009graph.pdf" target="_blank" rel="noopener" title="The graph neural network model (类似于survey)">9</a>,另一方面,空间的方法可以通过在傅立叶域中进行卷积而保留原来的空间信息.</p>
+<ol type="1">
+<li><p>对于视觉图像来说,Wang<a href="https://eccv2018.org/openaccess/content_ECCV_2018/papers/Xiaolong_Wang_Videos_as_Space-Time_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="Videos as Space-Time Region Graphs">选8</a> 提出将视频看作空间的图,而可以更好的得到视频中的时空信息.</p></li>
+<li>为了搭建一个动作识别的动态框架, Yan<a href="https://arxiv.org/pdf/1801.07455.pdf" target="_blank" rel="noopener" title="Spatial Temporal Graph Convolutional Networks for Skeleton-Based Action(动作识别)">选9</a> 提出了时空图卷积神经网络,包括一些类型的kernel.</li>
+<li>Shen<a href="https://arxiv.org/pdf/1807.09975.pdf" target="_blank" rel="noopener" title="Person Re-identification with GCN (RE-ID)">选10</a> 利用图神经网络的算子来进行person re id的工作</li>
+<li><p>Gao用了图神经网络来改进目标检测<a href="https://arxiv.org/pdf/1711.01714.pdf" target="_blank" rel="noopener" title="GCN用在classification">选11</a>和小样本视频分类[选12]的工作</p></li>
+</ol>
+<h2 id="graph-convolutional-tracking">Graph Convolutional Tracking</h2>
+<p><img src="Graph Convolutional Tracking阅读笔记.assets/流程.png" alt="流程" style="zoom:50%;" /></p>
+<h3 id="架构思路">架构思路</h3>
+<p>SiameseFC 学通过学一个相似度函数<span class="math inline">\(f(z,x)\)</span>来把127x127大小的模板图像z和255x255大小的搜索图像x投射到一个学习好的特征空间<span class="math inline">\(\phi\)</span>中(我们将z和x在转化后的图像表达为<span class="math inline">\(Z=\phi(z)\)</span>, <span class="math inline">\(X = \phi(x)\)</span>)</p>
+<p>于是可以表示相似度函数为: <span class="math display">\[
+f(z, x) = \phi(z)\star\phi(x) + b\\
+= Z\star X +b
+\]</span> <span class="math inline">\(\star\)</span>为Z与X的互相关操作, <span class="math inline">\(b\in R\)</span>表示每个位置的偏移量. 通过使用上面的公式,search图像中和模板最相似的部分将会被选出来.</p>
+<p>通常来说z都取最开始的第一张图像,之后就不会变了,这样显然不能适应多变的搜索环境.作者认为搜索图像的模板应该被动态的生成,结合时空的域中的一部分之前的搜索图像.于是作者使用图网络动态的制作模板图像,函数<span class="math inline">\(f(z,x)\)</span>为: <span class="math display">\[
+f(z_{t-T:t-1},x_{t})=\psi_{GCN}(Z_{t-T:t-1},X_{t})\star X_{t} + b
+\]</span> <span class="math inline">\(\psi_{GCN}\)</span>表示图神经网络的变换, 作者使用图神经网络来结合时空特征学习一个从<span class="math inline">\(t-T\)</span>到<span class="math inline">\(t-1\)</span>的鲁棒的搜索模板. 当前的搜索帧为<span class="math inline">\(X_t\)</span>而<span class="math inline">\(T\)</span>控制了图神经网络学习之前的多少帧的模板.</p>
+<p>有一个问题是使用<span class="math inline">\(\psi_{GCN}\)</span>需要过于大的计算量来对<span class="math inline">\(Z_{t-T:t-1}\)</span>到<span class="math inline">\(X_t\)</span>的部分进行综合和建模.为了减少计算量作者将<span class="math inline">\(\psi_{GCN}\)</span>分解为时空的图网络(Spatial-Temporal,简称ST-GCN)<span class="math inline">\(\psi_1\)</span>和上下文的图网络(ConText-GCN,简称CT-GCN)<span class="math inline">\(\psi_2\)</span>.</p>
+<p>于是函数<span class="math inline">\(f\)</span>就可以分解为: <span class="math display">\[
+f(z_{t-T:t-1},x_t)=\psi_2(\psi_1(Z_{t-T:t-1},X_t),X_t)\star X_t+b
+\]</span> 可以看出<span class="math inline">\(\psi_1\)</span>用来对历史的模板进行分析从而得出一个综合的特征模板<span class="math inline">\(V_1 = \psi_1(Z_{t-T:t-1})\)</span>. <span class="math inline">\(\psi_2\)</span>使用了<span class="math inline">\(V_1\)</span>和当前帧的上下文信息<span class="math inline">\(X_t\)</span>来得到一个<span class="math inline">\(V_2\)</span>. 得到的<span class="math inline">\(V_2\)</span>再和<span class="math inline">\(X_t\)</span>进行相似度度量.</p>
+<p>对于loss的设计,在历险训练的时候使用了logistic函数(cross entropy): <span class="math display">\[
+L(z_{t-T:t-1}, x_t, Y) = \frac{1}{|\nabla|}\sum_{u\in\nabla}log(1 + exp(-Y[u]R[u]))
+\]</span> <span class="math inline">\(\nabla\)</span>是所有模板滑过的位置,u是和目标图像上和模板大小一样的区域.<span class="math inline">\(y[u]\in\{+1,-1\}\)</span>是真实的分类标签,而<span class="math inline">\(R[u]=V_2[u]\cdot X_t[u]\)</span>是响应的值.</p>
+<h3 id="前置图神经网络">前置:图神经网络</h3>
+<p>给一个有<span class="math inline">\(M\)</span>个node的点集<span class="math inline">\(\mathcal{V}\)</span>,和一个边的集合<span class="math inline">\(\mathcal{E}\)</span>的有无向图<span class="math inline">\(\mathcal{G} = (\mathcal{V}, \mathcal{E})\)</span>, 一个邻接矩阵<span class="math inline">\(A\in R^{M \times M}\)</span>,和一个度数矩阵<span class="math inline">\(\Lambda_{ii} = \sum_jA_{ij}\)</span>.我们认为图卷集是用一个filter矩阵<span class="math inline">\(W\in R^{D\times C}\)</span>乘以一个图信号矩阵<span class="math inline">\(X\in R^{D\times M}\)</span>(行向量<span class="math inline">\(X_i\in R^D\)</span>是第<span class="math inline">\(i\)</span>个node的特征表示): <span class="math display">\[
+V = \hat{\Lambda}^{-\frac{1}{2}}\hat{A}\hat{\Lambda}^{-\frac{1}{2}}X^{\top}W
+\]</span> <span class="math inline">\(\hat{A} = A + I\)</span>, <span class="math inline">\(I\)</span>为一个单位矩阵, <span class="math inline">\(\hat{\Lambda_{ii}}=\sum_j\hat{A_{ij}}\)</span>.在这里产出是一个<span class="math inline">\(C\times M\)</span>的矩阵<span class="math inline">\(V\)</span>.</p>
+<p>一个GCN就是重复的使用上面的式子来进行卷积,再进行激活函数的处理得到的.</p>
+<h3 id="通过st-gcn对目标外观建模">通过ST-GCN对目标外观建模</h3>
+<p><img src="Graph Convolutional Tracking阅读笔记.assets/ST-GCN.png" alt="ST-GCN" style="zoom:50%;" /></p>
+<p><img src="Graph Convolutional Tracking阅读笔记.assets/ST-流程.jpg" alt="ST-流程" style="zoom:50%;" />引入时空的结构可以很好的帮助构建鲁棒的tracking系统. 利用ST-GCN,作者可以构建合适的模板.这一节描述的是如何用图网络从历史的模板中提取信息.</p>
+<p>作者将历史的模板<span class="math inline">\({z_i}^{t-T}_{i=t-1}\)</span>作为输入放入主网络<span class="math inline">\(\phi\)</span>中来生成投影到特征空间后的模板<span class="math inline">\({Z}^{t-T}_{i=t-1}\)</span>,这里<span class="math inline">\(Z_i \in R^{D_1 \times M_z}\)</span>作者把Z分为了<span class="math inline">\(D_1\)</span>和<span class="math inline">\(M_z\)</span>大小的块儿, <span class="math inline">\(D_1\)</span>为特征的维度(就是channel数量),<span class="math inline">\(M_z\)</span>为有多少个part作为输入(<span class="math inline">\(M_z = \sqrt{M_z}\times \sqrt{M_z}\)</span>其中的<span class="math inline">\(\sqrt{M_z}\)</span>为宽和高的大小).</p>
+<p>简单地说,就是把一张特征图里面包含所有channel的每一个1x1的块儿作为一个图神经网络的点来进行处理.<a href="https://arxiv.org/pdf/1707.05553.pdf" target="_blank" rel="noopener" title="Spectral Filter Tracking">4</a> <a href="https://persagen.com/files/misc/scarselli2009graph.pdf" target="_blank" rel="noopener" title="The graph neural network model (类似于survey)">9</a> 在这里作者提到了有其他的办法来进行处理,但是为了简便用了这样的处理方式(两种论文都可以看一看)<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Yunhua_Zhang_Structured_Siamese_Network_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="Structured Siamese Network for Real-Time">选7</a> <a href="https://eccv2018.org/openaccess/content_ECCV_2018/papers/Xiaolong_Wang_Videos_as_Space-Time_ECCV_2018_paper.pdf" target="_blank" rel="noopener" title="Videos as Space-Time Region Graphs">选8</a></p>
+<p>为了可以使用图神经网络进行处理,作者将特征模板序列构建成了一个无向图<span class="math inline">\(ST-graph \ \mathcal{G}_1 = (\mathcal{V}_1, \mathcal{E}_1)\)</span>,这个图中的每一个点都是一个<span class="math inline">\(D_1\)</span>维度的特征向量,且总共有<span class="math inline">\(TM_z\)</span>个点. 根据点与点之间的不同有两种边的关系:</p>
+<ol type="1">
+<li>空间结构的边: 空间结构的边为一帧中的点之间的互相全链接,作者认为随着物体的外观的变化所有点都有可能互相有关联.(作者同时也说这样可以最好的利用图神经网络的算法参考<a href="https://arxiv.org/pdf/1707.05553.pdf" target="_blank" rel="noopener" title="Spectral Filter Tracking">4</a>)</li>
+<li>时间结构的边: 时间结构的边为统一点上的前后帧关系.(参照了<a href="https://arxiv.org/pdf/1801.07455.pdf" target="_blank" rel="noopener" title="Spatial Temporal Graph Convolutional Networks for Skeleton-Based Action(动作识别)">选9</a>)</li>
+</ol>
+<p>这样的关系使每一个点最多会有<span class="math inline">\(M_z +1\)</span>个边与它相连,这样的结构可以减少计算量(具体方式存疑).</p>
+<p>进行过图卷积之后可以的得到新的<span class="math inline">\(\hat{Z} \in R^{D_2 \times M_z}\)</span>,之后作者为了进一步减少计算量进行了时间结构上的<span class="math inline">\(MaxPooling\)</span>来压缩时间维度到1而得到合成后的ST-feature图<span class="math inline">\(V_1\)</span>: <span class="math display">\[
+V_1 =MaxPooling([\hat{Z}_{t-T},\hat{Z}_{t-T+1},...,\hat{Z}_{t-2},\hat{Z}_{t-1}])
+\]</span> 时间结构上的<span class="math inline">\(MaxPooling\)</span>就是按照时间维度上来找一个最大值保留,得到的结果<span class="math inline">\(V_1\)</span>用来输入到后面的<span class="math inline">\(CT-GCN\)</span>中.</p>
+<h3 id="通过ct-gcn来适应目标特征">通过CT-GCN来适应目标特征</h3>
+<p>作者认为ST-GCN得到的结果是综合了之前时间和结构而得出的特征结果, 为了适应当前的搜索图像的特征, 作者通过使用CT-GCN来融合当前的搜索图像的特征来指导学习.(真的有效么?)</p>
+<p>CT-GCN的部分是通过输入的搜索图像来和之前得到的<span class="math inline">\(V_1\)</span>进行结合生成最终用来检测的模板, 输入的搜索图像经过背景网络<span class="math inline">\(\phi\)</span>得到<span class="math inline">\(X_t \in R^{D_1 \times M_x}\)</span>, <span class="math inline">\(D_1\)</span>为channel的数量,<span class="math inline">\(M_x=\sqrt{M_x}\times\sqrt{M_x}\)</span>为图的大小.</p>
+<p>为了得到整张搜索图像的信息,作者使用了一个<span class="math inline">\(D_2\)</span>维度的卷积层和一个池化层将搜索特征图<span class="math inline">\(X_t\)</span>的大小降到了<span class="math inline">\(D_1\times1\)</span> 的<span class="math inline">\(x_t\)</span> .(作者说在这里卷积层用了3x3卷机和<span class="math inline">\(D_2\)</span>的维度大小,步长为1. 池化的范围是<span class="math inline">\(M_x\)</span>).(我个人觉得特征图的大小是不是被降到了<span class="math inline">\(D_2\)</span>维度?按照作者的描述来说,而且这样子一下降采样过多会不会导致效果不好呢,毕竟一下子舍弃了太多的信息)</p>
+<p>得到了一个<span class="math inline">\(D_1\times1\)</span>的特征后,为了将特征投射回目标的空间,作者使用了反卷积操作,使$x_t <span class="math inline">\(的大小增大回\)</span>V_1<span class="math inline">\(的维度生成\)</span><span class="math inline">\(再和\)</span>V_1$进行点到点的加和. <span class="math display">\[
+V_x = V_1 + \hat{X}_t
+\]</span> 作者认为<span class="math inline">\(V_x\)</span>就是融合后的特征,进一步可以通过邻接矩阵<span class="math inline">\(A_2\)</span>和<span class="math inline">\(V_x\)</span>生成一个图<span class="math inline">\(\mathcal{G}_2 = (\mathcal{V}_2, \mathcal{E}_2)\)</span>,邻接矩阵<span class="math inline">\(A_2\)</span>定义为: <span class="math display">\[
+A_{2}^{ji} = \frac{exp(g(V_{x,i})^{\top}h(V_{x,j}))}{\sum^{M_z}_{i=1}exp(g(V_{x,i})^\top h(V_{x,j}))}
+\]</span> <span class="math inline">\(V_{x,i}\)</span>为<span class="math inline">\(V_x\)</span>的第<span class="math inline">\(i\)</span>个列向量,<span class="math inline">\(g(\cdot)\)</span>和<span class="math inline">\(h(\cdot)\)</span>是两个1x1的,<span class="math inline">\(D_1\)</span>个filter的卷积层. 构建好图后,我们就可以将V1输入来通过图卷积生成一个可以使用的模版了.</p></li>
+</ol>
+<h2 id="实验细节">实验细节</h2>
+<h3 id="网络结构">网络结构</h3>
+<p>作者使用了在ImageNet上pretrain后的AlexNet作为网络骨架,定死了前三个的权重只训练前两层的部分,后面还加了一层来降低维度, 出来的图分别是6x6和22x22的.</p>
+<p>对于ST-GCN部分使用了两层图卷积神经网络,第一个512维度第二个256维度.</p>
+<p>对于CT-GCN部分也是两层图卷积神经网络,一个384,一个256维度.激活函数都是用了LeakyReLu.</p>
+<h3 id="线下训练">线下训练</h3>
+<p>用了ILSVRC2015的数据作为training data, 对于每一个视频,作者从100张frame里收集了T+1帧的图像,用T张图生成模版来分类第T+1张图.</p>
+<p>用了adam优化器,0.005的学习率和5e-5的衰减,训练了50个epoch,batch大小24</p>
+<h3 id="线上阶段">线上阶段</h3>
+<p>在初始化的时候用同一张图复制T次,实验的时候使用的T为10.在tracking的过程中,作者每7帧来update一次模版,所以每70帧算是一个轮回.</p>
+<p>每次更新新的模版的时候作者使用0.4的衰减率, 目标的中心以互相关后的特征图的最大值为准.</p>
+<p>作者还使用了多层级特征进行生成特征图,融合率为0.7</p>
+<h3 id="discustion">Discustion</h3>
+<p>通过使用ST-GCN和CT-GCN,两者分别融合了时空的信息和当前帧的上下文信息,并可以做到端到端的训练.</p>
+<p>对于ST-GCN,作者从两点考虑构建了关系固定的图:</p>
+<ol type="1">
+<li>时空图较大,有<span class="math inline">\(M_zT\)</span>个点, 将邻接矩阵固定可以使速度更快而不需要自动学习来适应.(减少计算量),<a href="https://arxiv.org/pdf/1707.05553.pdf" target="_blank" rel="noopener" title="Spectral Filter Tracking">4</a>也固定了图的关系.</li>
+<li>虽然时间上的联系的位置是不变化的,连续的帧之间的点有些是不连接的,但是因为空间的点是全联接的,所以每一个时间点实际上也是间接可传递的,而且多层的ST可以增大感受野.</li>
+</ol>
+<p>对于CT-GCN,我们使用搜索图来提供上下文信息比如周围的环境.</p>
+<p>在实验中两种的作用都被验证了.</p>
+<h2 id="实验和效果">实验和效果</h2>
+<p>参考论文的分析</p>
+<h2 id="总结和思考">总结和思考</h2>
+<p>本篇文章为使用图神经网络对历史信息进行处理并在线学习提供了一个很好的范式, 并且证明了历史信息和上下文信息对于构建模版的有效性.</p>
+<p>能否将这个系统范式应用在全卷积神经网络中呢?</p>
+<p>是否还可以减少这个系统的计算量呢?</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CVPR-2019/" rel="tag"># CVPR 2019</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/10/CVPR%202019%20Siamese%20Cascaded%20Region%20Proposal%20Networks%20for%20Real-Time%20Visual%20Tracking%20%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="next" title="Siamese Cascaded Region Proposal Networks for Real-Time Visual Tracking 阅读笔记">
+                <i class="fa fa-chevron-left"></i> Siamese Cascaded Region Proposal Networks for Real-Time Visual Tracking 阅读笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/11/Arxiv%202018%20DAWN%20Dual%20Augmented%20Memory%20Network%20for%20Unsupervised%20Video%20Object%20Tracking%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="prev" title="Arxiv 2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking 阅读笔记">
+                Arxiv 2018 DAWN Dual Augmented Memory Network for Unsupervised Video Object Tracking 阅读笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">James limer</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#motivation"><span class="nav-number">2.</span> <span class="nav-text">motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">3.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#related-work"><span class="nav-number">4.</span> <span class="nav-text">related work</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#siamese起源"><span class="nav-number">4.1.</span> <span class="nav-text">Siamese起源:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标模板构建的框架"><span class="nav-number">4.2.</span> <span class="nav-text">目标模板构建的框架:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图神经网络在视觉中的应用"><span class="nav-number">4.3.</span> <span class="nav-text">图神经网络在视觉中的应用:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#graph-convolutional-tracking"><span class="nav-number">5.</span> <span class="nav-text">Graph Convolutional Tracking</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#架构思路"><span class="nav-number">5.1.</span> <span class="nav-text">架构思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前置图神经网络"><span class="nav-number">5.2.</span> <span class="nav-text">前置:图神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过st-gcn对目标外观建模"><span class="nav-number">5.3.</span> <span class="nav-text">通过ST-GCN对目标外观建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过ct-gcn来适应目标特征"><span class="nav-number">5.4.</span> <span class="nav-text">通过CT-GCN来适应目标特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验细节"><span class="nav-number">6.</span> <span class="nav-text">实验细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络结构"><span class="nav-number">6.1.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线下训练"><span class="nav-number">6.2.</span> <span class="nav-text">线下训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线上阶段"><span class="nav-number">6.3.</span> <span class="nav-text">线上阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#discustion"><span class="nav-number">6.4.</span> <span class="nav-text">Discustion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验和效果"><span class="nav-number">7.</span> <span class="nav-text">实验和效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结和思考"><span class="nav-number">8.</span> <span class="nav-text">总结和思考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">James limer</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">24.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("P0Xx21EXAjctw5UYWY4ISfSd-MdYXbMMI", "zx8KfhNVjlUbPOMpAEIhczA7");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
